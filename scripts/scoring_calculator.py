@@ -1,0 +1,328 @@
+"""
+Custom Scoring Calculator
+Implements the victory points scoring system that combines head-to-head and performance-based wins
+"""
+
+import json
+import logging
+from datetime import datetime
+from typing import Dict, List, Any, Tuple
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+
+class ScoringCalculator:
+    """Calculator for custom victory points scoring system"""
+    
+    def __init__(self, output_dir: str = "data"):
+        """Initialize the scoring calculator
+        
+        Args:
+            output_dir: Directory to save calculated data
+        """
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(exist_ok=True)
+    
+    def calculate_week_results(self, matchups: List[Dict], week_scores: List[Dict]) -> Dict[str, Any]:
+        """Calculate results for a single week
+        
+        Args:
+            matchups: List of head-to-head matchup data
+            week_scores: List of all team scores for the week
+            
+        Returns:
+            Dictionary containing week results and standings
+        """
+        week = week_scores[0]['week'] if week_scores else 1
+        
+        # Calculate head-to-head results
+        h2h_results = self._calculate_h2h_results(matchups)
+        
+        # Calculate performance results (top half vs bottom half)
+        performance_results = self._calculate_performance_results(week_scores)
+        
+        # Combine results
+        combined_results = self._combine_results(h2h_results, performance_results, week_scores)
+        
+        week_data = {
+            'week': week,
+            'date_calculated': datetime.now().isoformat(),
+            'team_results': combined_results,
+            'week_summary': self._generate_week_summary(combined_results, week_scores)
+        }
+        
+        return week_data
+    
+    def _calculate_h2h_results(self, matchups: List[Dict]) -> Dict[str, str]:
+        """Calculate head-to-head win/loss results
+        
+        Returns:
+            Dictionary mapping team_id to 'W' or 'L'
+        """
+        h2h_results = {}
+        
+        for matchup in matchups:
+            team1 = matchup['team1']
+            team2 = matchup['team2']
+            
+            team1_score = float(team1['points'])
+            team2_score = float(team2['points'])
+            
+            if team1_score > team2_score:
+                h2h_results[team1['team_id']] = 'W'
+                h2h_results[team2['team_id']] = 'L'
+            elif team2_score > team1_score:
+                h2h_results[team1['team_id']] = 'L'
+                h2h_results[team2['team_id']] = 'W'
+            else:
+                # Tie
+                h2h_results[team1['team_id']] = 'T'
+                h2h_results[team2['team_id']] = 'T'
+        
+        return h2h_results
+    
+    def _calculate_performance_results(self, week_scores: List[Dict]) -> Dict[str, str]:
+        """Calculate performance-based win/loss results
+        
+        Teams in top half get 'W', bottom half get 'L'
+        
+        Returns:
+            Dictionary mapping team_id to 'W' or 'L'
+        """
+        # Scores should already be sorted by score descending
+        sorted_scores = sorted(week_scores, key=lambda x: x['score'], reverse=True)
+        
+        num_teams = len(sorted_scores)
+        top_half_size = num_teams // 2
+        
+        performance_results = {}
+        
+        for i, team_data in enumerate(sorted_scores):
+            team_id = team_data['team_id']
+            
+            if i < top_half_size:
+                performance_results[team_id] = 'W'
+            else:
+                performance_results[team_id] = 'L'
+        
+        return performance_results
+    
+    def _combine_results(self, h2h_results: Dict[str, str], 
+                        performance_results: Dict[str, str],
+                        week_scores: List[Dict]) -> List[Dict[str, Any]]:
+        """Combine head-to-head and performance results
+        
+        Returns:
+            List of team results with combined scoring
+        """
+        combined_results = []
+        
+        # Create a mapping for easy team data lookup
+        team_score_map = {team['team_id']: team for team in week_scores}
+        
+        for team_id in h2h_results:
+            if team_id not in team_score_map:
+                continue
+                
+            team_data = team_score_map[team_id]
+            h2h_result = h2h_results[team_id]
+            performance_result = performance_results[team_id]
+            
+            # Calculate wins and losses
+            h2h_wins = 1 if h2h_result == 'W' else 0
+            h2h_losses = 1 if h2h_result == 'L' else 0
+            h2h_ties = 1 if h2h_result == 'T' else 0
+            
+            performance_wins = 1 if performance_result == 'W' else 0
+            performance_losses = 1 if performance_result == 'L' else 0
+            
+            total_wins = h2h_wins + performance_wins
+            total_losses = h2h_losses + performance_losses
+            
+            team_result = {
+                'team_id': team_id,
+                'team_name': team_data['team_name'],
+                'team_key': team_data['team_key'],
+                'week_score': team_data['score'],
+                'h2h_result': h2h_result,
+                'performance_result': performance_result,
+                'h2h_wins': h2h_wins,
+                'h2h_losses': h2h_losses,
+                'h2h_ties': h2h_ties,
+                'performance_wins': performance_wins,
+                'performance_losses': performance_losses,
+                'total_wins': total_wins,
+                'total_losses': total_losses,
+                'victory_points': total_wins  # Alternative name for total wins
+            }
+            
+            combined_results.append(team_result)
+        
+        # Sort by total wins (victory points) descending, then by score
+        combined_results.sort(key=lambda x: (x['total_wins'], x['week_score']), reverse=True)
+        
+        return combined_results
+    
+    def _generate_week_summary(self, results: List[Dict], week_scores: List[Dict]) -> Dict[str, Any]:
+        """Generate summary statistics for the week"""
+        if not results:
+            return {}
+        
+        week = week_scores[0]['week'] if week_scores else 1
+        scores = [team['week_score'] for team in results]
+        
+        summary = {
+            'week': week,
+            'total_teams': len(results),
+            'highest_score': max(scores) if scores else 0,
+            'lowest_score': min(scores) if scores else 0,
+            'average_score': sum(scores) / len(scores) if scores else 0,
+            'perfect_weeks': len([team for team in results if team['total_wins'] == 2]),
+            'winless_weeks': len([team for team in results if team['total_wins'] == 0])
+        }
+        
+        return summary
+    
+    def calculate_season_standings(self, weeks_data: List[Dict]) -> Dict[str, Any]:
+        """Calculate cumulative season standings from multiple weeks
+        
+        Args:
+            weeks_data: List of week result dictionaries
+            
+        Returns:
+            Season standings dictionary
+        """
+        if not weeks_data:
+            return {}
+        
+        # Initialize team totals
+        team_totals = {}
+        
+        for week_data in weeks_data:
+            for team_result in week_data['team_results']:
+                team_id = team_result['team_id']
+                
+                if team_id not in team_totals:
+                    team_totals[team_id] = {
+                        'team_id': team_id,
+                        'team_name': team_result['team_name'],
+                        'team_key': team_result['team_key'],
+                        'total_h2h_wins': 0,
+                        'total_h2h_losses': 0,
+                        'total_h2h_ties': 0,
+                        'total_performance_wins': 0,
+                        'total_performance_losses': 0,
+                        'total_wins': 0,
+                        'total_losses': 0,
+                        'total_points': 0,
+                        'weeks_played': 0
+                    }
+                
+                # Add week totals
+                totals = team_totals[team_id]
+                totals['total_h2h_wins'] += team_result['h2h_wins']
+                totals['total_h2h_losses'] += team_result['h2h_losses']
+                totals['total_h2h_ties'] += team_result['h2h_ties']
+                totals['total_performance_wins'] += team_result['performance_wins']
+                totals['total_performance_losses'] += team_result['performance_losses']
+                totals['total_wins'] += team_result['total_wins']
+                totals['total_losses'] += team_result['total_losses']
+                totals['total_points'] += team_result['week_score']
+                totals['weeks_played'] += 1
+        
+        # Calculate additional stats
+        for team_id, totals in team_totals.items():
+            weeks_played = totals['weeks_played']
+            if weeks_played > 0:
+                totals['average_score'] = totals['total_points'] / weeks_played
+                totals['win_percentage'] = totals['total_wins'] / (weeks_played * 2)  # Max 2 wins per week
+            else:
+                totals['average_score'] = 0
+                totals['win_percentage'] = 0
+        
+        # Sort standings by total wins, then by total points
+        standings = list(team_totals.values())
+        standings.sort(key=lambda x: (x['total_wins'], x['total_points']), reverse=True)
+        
+        # Add ranking
+        for i, team in enumerate(standings):
+            team['rank'] = i + 1
+        
+        season_standings = {
+            'last_updated': datetime.now().isoformat(),
+            'weeks_included': len(weeks_data),
+            'standings': standings,
+            'season_summary': self._generate_season_summary(standings, weeks_data)
+        }
+        
+        return season_standings
+    
+    def _generate_season_summary(self, standings: List[Dict], weeks_data: List[Dict]) -> Dict[str, Any]:
+        """Generate season summary statistics"""
+        if not standings:
+            return {}
+        
+        total_weeks = len(weeks_data)
+        
+        summary = {
+            'total_weeks': total_weeks,
+            'total_teams': len(standings),
+            'leader': standings[0]['team_name'] if standings else 'Unknown',
+            'leader_wins': standings[0]['total_wins'] if standings else 0,
+            'most_points': max(standings, key=lambda x: x['total_points'])['team_name'] if standings else 'Unknown',
+            'highest_total_points': max(standings, key=lambda x: x['total_points'])['total_points'] if standings else 0
+        }
+        
+        return summary
+    
+    def save_week_data(self, week_data: Dict[str, Any]) -> str:
+        """Save week data to JSON file
+        
+        Returns:
+            Path to saved file
+        """
+        week = week_data['week']
+        filename = f"week_{week:02d}_results.json"
+        filepath = self.output_dir / filename
+        
+        with open(filepath, 'w') as f:
+            json.dump(week_data, f, indent=2)
+        
+        logger.info(f"Saved week {week} data to {filepath}")
+        return str(filepath)
+    
+    def save_season_standings(self, standings_data: Dict[str, Any]) -> str:
+        """Save season standings to JSON file
+        
+        Returns:
+            Path to saved file
+        """
+        filename = "season_standings.json"
+        filepath = self.output_dir / filename
+        
+        with open(filepath, 'w') as f:
+            json.dump(standings_data, f, indent=2)
+        
+        logger.info(f"Saved season standings to {filepath}")
+        return str(filepath)
+    
+    def load_all_weeks_data(self) -> List[Dict[str, Any]]:
+        """Load all existing week data files
+        
+        Returns:
+            List of week data dictionaries, sorted by week
+        """
+        weeks_data = []
+        
+        for json_file in self.output_dir.glob("week_*_results.json"):
+            try:
+                with open(json_file, 'r') as f:
+                    week_data = json.load(f)
+                    weeks_data.append(week_data)
+            except Exception as e:
+                logger.error(f"Failed to load {json_file}: {e}")
+        
+        # Sort by week number
+        weeks_data.sort(key=lambda x: x['week'])
+        return weeks_data

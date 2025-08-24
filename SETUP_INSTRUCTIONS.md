@@ -1,0 +1,214 @@
+# Victory Points Setup Instructions
+
+Follow these steps to get your Yahoo Fantasy Football custom scoring system up and running.
+
+## 🚀 Quick Start
+
+1. **Install Python dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Run the setup script**
+   ```bash
+   python setup.py
+   ```
+
+3. **Configure your credentials** (see detailed instructions below)
+
+4. **Test the connection**
+   ```bash
+   python setup.py  # Run again after configuring credentials
+   ```
+
+5. **Fetch your first week of data**
+   ```bash
+   python scripts/fetch_data.py --week 1
+   ```
+
+## 📋 Detailed Setup
+
+### Step 1: Yahoo Developer Account Setup
+
+1. **Create a Yahoo Developer App**
+   - Go to https://developer.yahoo.com/apps/create/
+   - Fill out the form:
+     - **Application Name**: Victory Points Fantasy (or any name)
+     - **Application Type**: Web Application
+     - **Description**: Custom fantasy football scoring system
+     - **Home Page URL**: `http://localhost` (or your domain)
+     - **Redirect URI**: `oob` (out of band)
+   
+2. **Select API Permissions**
+   - Check **Fantasy Sports**
+   - Select **Read/Write** access
+   
+3. **Create the application**
+   - Note your **Client ID** (Consumer Key)
+   - Note your **Client Secret** (Consumer Secret)
+
+### Step 2: Find Your League ID
+
+1. **Go to your Yahoo Fantasy Football league**
+2. **Look at the URL in your browser**
+   - Example: `https://football.fantasysports.yahoo.com/f1/123456/`
+   - The number after `f1/` is your League ID (123456 in this example)
+
+### Step 3: Configure Credentials
+
+Choose one of these methods:
+
+#### Option A: Environment Variables (.env file)
+1. Copy the template: `cp env.template .env`
+2. Edit `.env` file:
+   ```
+   YAHOO_CONSUMER_KEY=your_actual_consumer_key
+   YAHOO_CONSUMER_SECRET=your_actual_consumer_secret
+   LEAGUE_ID=your_actual_league_id
+   GAME_KEY=nfl
+   CURRENT_SEASON=2024
+   ```
+
+#### Option B: Configuration File
+1. Copy the template: `cp config/yahoo_config_template.json config/yahoo_config.json`
+2. Edit `config/yahoo_config.json`:
+   ```json
+   {
+     "yahoo_oauth": {
+       "consumer_key": "your_actual_consumer_key",
+       "consumer_secret": "your_actual_consumer_secret"
+     },
+     "league_config": {
+       "game_key": "nfl",
+       "league_id": "your_actual_league_id",
+       "current_season": 2024
+     }
+   }
+   ```
+
+### Step 4: Test Your Setup
+
+```bash
+python setup.py
+```
+
+If successful, you should see:
+```
+✓ Successfully connected to league: Your League Name
+  Season: 2024
+  Teams: 12
+  Current Week: 1
+```
+
+## 🏈 Using the System
+
+### Fetch Data for Current Week
+```bash
+python scripts/fetch_data.py
+```
+
+### Fetch Data for Specific Week
+```bash
+python scripts/fetch_data.py --week 3
+```
+
+### Fetch All Available Weeks
+```bash
+python scripts/fetch_data.py --all-weeks
+```
+
+### View the Website
+1. Open `website/index.html` in your browser
+2. Or serve it locally:
+   ```bash
+   cd website
+   python -m http.server 8000
+   # Then visit http://localhost:8000
+   ```
+
+## 🤖 Automation Setup (Optional)
+
+### GitHub Pages Hosting
+
+1. **Push your project to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/yourusername/victory-points.git
+   git push -u origin main
+   ```
+
+2. **Set up repository secrets**
+   - Go to your repo → Settings → Secrets and variables → Actions
+   - Add these secrets:
+     - `YAHOO_CONSUMER_KEY`: Your Yahoo app consumer key
+     - `YAHOO_CONSUMER_SECRET`: Your Yahoo app consumer secret
+     - `LEAGUE_ID`: Your league ID
+
+3. **Enable GitHub Pages**
+   - Go to repo → Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: gh-pages (will be created automatically)
+
+4. **Manual trigger** (for testing)
+   - Go to repo → Actions → "Update Fantasy Football Standings"
+   - Click "Run workflow"
+
+The automation will:
+- Run every Tuesday at 8 AM EST
+- Fetch the latest data from Yahoo
+- Calculate custom standings
+- Update the website automatically
+
+## 📊 Understanding the Scoring
+
+### Traditional Yahoo Scoring
+- Team A beats Team B: A gets 1 win, B gets 1 loss
+
+### Victory Points Scoring
+Each team gets **two results** per week:
+
+1. **Head-to-Head Result**: Win/loss against weekly opponent (same as Yahoo)
+2. **Performance Result**: 
+   - **Win** if team scores in top half of league that week
+   - **Loss** if team scores in bottom half of league that week
+
+### Example
+**Week 1 Results** (12 team league):
+- Team A: 125 pts (3rd highest) vs Team B: 80 pts (10th highest)
+- **Traditional**: Team A (1-0), Team B (0-1)
+- **Victory Points**: Team A (2-0), Team B (0-2)
+  - Team A: H2H Win + Performance Win (top half)
+  - Team B: H2H Loss + Performance Loss (bottom half)
+
+## 🛠️ Troubleshooting
+
+### "Failed to connect to Yahoo API"
+- Double-check your Consumer Key and Secret
+- Verify your League ID is correct
+- Make sure you selected "Fantasy Sports" permissions when creating your Yahoo app
+
+### "No data available for this week"
+- The week might not have started yet
+- Scores might not be finalized yet (Yahoo processes them after games complete)
+
+### Authentication Issues
+- Delete the `config/auth/` directory and try again
+- Make sure your Yahoo app has the correct permissions
+
+### Website Not Displaying Data
+- Make sure you've run the data fetcher at least once
+- Check that JSON files exist in the `data/` directory
+- Serve the website from a local server (not file://)
+
+## 📞 Support
+
+If you run into issues:
+1. Check the logs in your terminal for error messages
+2. Verify your Yahoo app configuration
+3. Make sure your league ID is correct
+4. Try running the setup script again
+
+The system will automatically handle Yahoo's OAuth flow the first time you run it.

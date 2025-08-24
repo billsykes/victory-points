@@ -1,0 +1,113 @@
+name: Update Fantasy Football Standings
+
+on:
+  schedule:
+    # Run every Tuesday at 8 AM EST (after Yahoo processes weekend games)
+    - cron: '0 13 * * 2'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      week:
+        description: 'Specific week to process (leave empty for current week)'
+        required: false
+        type: string
+      all_weeks:
+        description: 'Process all available weeks'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  update-standings:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Create auth directory
+      run: mkdir -p config/auth
+    
+    - name: Fetch data and update standings
+      env:
+        YAHOO_CONSUMER_KEY: ${{ secrets.YAHOO_CONSUMER_KEY }}
+        YAHOO_CONSUMER_SECRET: ${{ secrets.YAHOO_CONSUMER_SECRET }}
+        LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
+        GAME_KEY: nfl
+        CURRENT_SEASON: 2024
+      run: |
+        if [ "${{ github.event.inputs.all_weeks }}" = "true" ]; then
+          python scripts/fetch_data.py --all-weeks
+        elif [ -n "${{ github.event.inputs.week }}" ]; then
+          python scripts/fetch_data.py --week ${{ github.event.inputs.week }}
+        else
+          python scripts/fetch_data.py
+        fi
+    
+    - name: Check for changes
+      id: git-check
+      run: |
+        git add data/
+        if git diff --staged --quiet; then
+          echo "changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "changes=true" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Commit and push changes
+      if: steps.git-check.outputs.changes == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/
+        git commit -m "🏈 Update fantasy football standings - $(date '+%Y-%m-%d %H:%M')"
+        git push
+    
+    - name: Deploy to GitHub Pages
+      if: steps.git-check.outputs.changes == 'true'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./website
+        publish_branch: gh-pages
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: '🏈 Update standings website - ${{ github.sha }}'
+    
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## Fantasy Football Standings Update" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.git-check.outputs.changes }}" = "true" ]; then
+          echo "✅ **Standings updated successfully**" >> $GITHUB_STEP_SUMMARY
+          echo "- New data fetched from Yahoo Fantasy API" >> $GITHUB_STEP_SUMMARY
+          echo "- Standings recalculated with Victory Points system" >> $GITHUB_STEP_SUMMARY
+          echo "- Website deployed to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ **No changes detected**" >> $GITHUB_STEP_SUMMARY
+          echo "- No new data available from Yahoo Fantasy API" >> $GITHUB_STEP_SUMMARY
+        fi
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Next scheduled update:** Tuesday at 8 AM EST" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victory Points - Fantasy Football Standings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Victory Points</h1>
+            <p class="subtitle">Fantasy Football Custom Standings</p>
+        </header>
+
+        <div class="scoring-explanation">
+            <h2>Scoring System</h2>
+            <p>Each team earns <strong>two results</strong> each week:</p>
+            <div class="scoring-grid">
+                <div class="scoring-item">
+                    <div class="scoring-icon">⚔️</div>
+                    <div>
+                        <strong>Head-to-Head</strong>
+                        <p>Win or loss vs. weekly opponent</p>
+                    </div>
+                </div>
+                <div class="scoring-item">
+                    <div class="scoring-icon">📊</div>
+                    <div>
+                        <strong>Performance</strong>
+                        <p>Win if top half of league, loss if bottom half</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="week-selector">
+                <label for="weekSelect">View Week:</label>
+                <select id="weekSelect">
+                    <option value="season">Season Standings</option>
+                </select>
+            </div>
+            <div class="last-updated">
+                <span id="lastUpdated">Loading...</span>
+            </div>
+        </div>
+
+        <div id="seasonStandings" class="standings-container">
+            <h2>Season Standings</h2>
+            <div class="table-container">
+                <table class="standings-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>Total Record</th>
+                            <th>H2H Record</th>
+                            <th>Performance Record</th>
+                            <th>Total Points</th>
+                            <th>Avg Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="seasonStandingsBody">
+                        <tr>
+                            <td colspan="7" class="loading">Loading standings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="weekResults" class="standings-container" style="display: none;">
+            <h2 id="weekResultsTitle">Week Results</h2>
+            <div class="week-summary" id="weekSummary"></div>
+            <div class="table-container">
+                <table class="standings-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>Score</th>
+                            <th>H2H</th>
+                            <th>Performance</th>
+                            <th>Week Record</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weekResultsBody">
+                        <tr>
+                            <td colspan="6" class="loading">Loading week results...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="season-summary" id="seasonSummary" style="display: none;">
+            <h3>Season Summary</h3>
+            <div class="summary-stats" id="summaryStats"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Victory Points System | Data from Yahoo Fantasy Sports API</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

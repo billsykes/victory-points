@@ -1,0 +1,18 @@
+# Yahoo Fantasy Sports API
+yfpy>=13.0.0
+
+# Data processing
+pandas>=2.1.0
+numpy>=1.26.0
+
+# Date/time handling
+python-dateutil>=2.8.2
+
+# HTTP requests (backup for API calls)
+requests>=2.31.0
+
+# JSON handling and utilities
+python-dotenv>=1.0.0
+
+# Logging
+colorlog>=6.8.0
