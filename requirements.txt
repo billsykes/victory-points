@@ -1,5 +1,5 @@
-# Yahoo Fantasy Sports API - pinned to avoid build issues
-yfpy==13.1.0
+# Yahoo Fantasy Sports API - using latest stable version
+yfpy>=16.0.0,<17.0.0
 
 # Data processing - stable versions
 pandas==2.1.4

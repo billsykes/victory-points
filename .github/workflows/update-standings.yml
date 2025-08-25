@@ -81,7 +81,7 @@ jobs:
           pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dateutil==2.8.2
           pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dotenv==1.0.1
           pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org colorlog==6.8.2
-          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org yfpy==13.1.0
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org "yfpy>=16.0.0,<17.0.0"
         }
     
     - name: Verify installation
