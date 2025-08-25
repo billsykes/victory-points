@@ -88,10 +88,14 @@ jobs:
       run: |
         echo "=== Verifying installed packages ==="
         python -c "import sys; print(f'Python version: {sys.version}')"
-        python -c "import yfpy; print(f'yfpy version: {yfpy.__version__}')"
+        python -c "import yfpy; print('✅ yfpy imported successfully')"
+        python -c "from yfpy import YahooFantasySportsQuery; print('✅ YahooFantasySportsQuery imported successfully')"
         python -c "import pandas; print(f'pandas version: {pandas.__version__}')"
         python -c "import requests; print(f'requests version: {requests.__version__}')"
-        echo "✅ All required packages are properly installed"
+        python -c "import numpy; print(f'numpy version: {numpy.__version__}')"
+        python -c "import dotenv; print('✅ python-dotenv imported successfully')"
+        python -c "import colorlog; print('✅ colorlog imported successfully')"
+        echo "✅ All required packages are properly installed and importable"
     
     - name: Create auth directory
       run: mkdir -p config/auth
@@ -115,8 +119,9 @@ jobs:
         echo "Testing Python imports..."
         cd scripts
         python -c "import sys; print('Python sys.path:', sys.path)"
-        python -c "import yfpy; print('yfpy imported successfully')"
-        python -c "import yahoo_client; print('yahoo_client imported successfully')"
+        python -c "import yfpy; print('✅ yfpy imported successfully')"
+        python -c "from yfpy import YahooFantasySportsQuery; print('✅ YahooFantasySportsQuery imported successfully')"
+        python -c "import yahoo_client; print('✅ yahoo_client imported successfully')"
         cd ..
         
         # Run the script with proper path
