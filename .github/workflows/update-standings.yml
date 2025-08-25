@@ -53,36 +53,45 @@ jobs:
         pip config set global.retries 5
         pip config set global.disable-pip-version-check true
         
-        # Multiple fallback installation strategies
-        echo "=== Attempting installation with primary PyPI ==="
-        if pip install --verbose --retries 5 --timeout 60 -r requirements.txt; then
-          echo "✅ Installation successful with primary PyPI"
-        else
-          echo "❌ Primary installation failed, trying with trusted hosts..."
-          if pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 5 --timeout 60 -r requirements.txt; then
-            echo "✅ Installation successful with trusted hosts"
+        # Function to try installation with different methods
+        install_requirements() {
+          local method="$1"
+          local cmd="$2"
+          echo "=== Trying installation method: $method ==="
+          if eval "$cmd"; then
+            echo "✅ Installation successful with $method"
+            return 0
           else
-            echo "❌ Trusted hosts failed, trying with alternative mirror..."
-            if pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn --retries 5 --timeout 60 -r requirements.txt; then
-              echo "✅ Installation successful with alternative mirror"
-            else
-              echo "❌ All installation methods failed, trying individual packages..."
-              # Install packages one by one to isolate problematic ones
-              grep -v '^#' requirements.txt | grep -v '^$' | while read requirement; do
-                echo "Installing: $requirement"
-                for attempt in 1 2 3; do
-                  if pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 3 --timeout 30 "$requirement"; then
-                    echo "✅ Successfully installed: $requirement"
-                    break
-                  else
-                    echo "⚠️  Attempt $attempt failed for: $requirement"
-                    sleep 5
-                  fi
-                done
-              done
-            fi
+            echo "❌ Installation failed with $method"
+            return 1
           fi
-        fi
+        }
+        
+        # Try different installation methods in order
+        install_requirements "primary PyPI" "pip install --verbose --retries 5 --timeout 60 -r requirements.txt" || \
+        install_requirements "trusted hosts" "pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 5 --timeout 60 -r requirements.txt" || \
+        install_requirements "alternative mirror" "pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn --retries 5 --timeout 60 -r requirements.txt" || \
+        {
+          echo "❌ All standard methods failed, trying individual package installation..."
+          # Install essential packages individually
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org setuptools wheel
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org numpy==1.26.4
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org pandas==2.1.4
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org requests==2.31.0
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dateutil==2.8.2
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dotenv==1.0.1
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org colorlog==6.8.2
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org yfpy==13.1.0
+        }
+    
+    - name: Verify installation
+      run: |
+        echo "=== Verifying installed packages ==="
+        python -c "import sys; print(f'Python version: {sys.version}')"
+        python -c "import yfpy; print(f'yfpy version: {yfpy.__version__}')"
+        python -c "import pandas; print(f'pandas version: {pandas.__version__}')"
+        python -c "import requests; print(f'requests version: {requests.__version__}')"
+        echo "✅ All required packages are properly installed"
     
     - name: Create auth directory
       run: mkdir -p config/auth
@@ -94,13 +103,29 @@ jobs:
         LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
         GAME_KEY: nfl
         CURRENT_SEASON: 2024
+        PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/scripts
       run: |
+        # Verify we're in the right directory and show Python path
+        echo "Current directory: $(pwd)"
+        echo "Python path: $PYTHONPATH"
+        echo "Files in scripts/:"
+        ls -la scripts/
+        
+        # Test Python imports before running
+        echo "Testing Python imports..."
+        cd scripts
+        python -c "import sys; print('Python sys.path:', sys.path)"
+        python -c "import yfpy; print('yfpy imported successfully')"
+        python -c "import yahoo_client; print('yahoo_client imported successfully')"
+        cd ..
+        
+        # Run the script with proper path
         if [ "${{ github.event.inputs.all_weeks }}" = "true" ]; then
-          python scripts/fetch_data.py --all-weeks
+          cd scripts && python fetch_data.py --all-weeks
         elif [ -n "${{ github.event.inputs.week }}" ]; then
-          python scripts/fetch_data.py --week ${{ github.event.inputs.week }}
+          cd scripts && python fetch_data.py --week ${{ github.event.inputs.week }}
         else
-          python scripts/fetch_data.py
+          cd scripts && python fetch_data.py
         fi
     
     - name: Check for changes
