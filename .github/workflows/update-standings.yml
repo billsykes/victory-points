@@ -31,7 +31,10 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.11'
+    
+    - name: Disable IPv6 to prevent connection issues
+      run: sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
     
     - name: Cache pip dependencies
       uses: actions/cache@v3
@@ -44,7 +47,42 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        
+        # Configure pip for better reliability
+        pip config set global.timeout 60
+        pip config set global.retries 5
+        pip config set global.disable-pip-version-check true
+        
+        # Multiple fallback installation strategies
+        echo "=== Attempting installation with primary PyPI ==="
+        if pip install --verbose --retries 5 --timeout 60 -r requirements.txt; then
+          echo "✅ Installation successful with primary PyPI"
+        else
+          echo "❌ Primary installation failed, trying with trusted hosts..."
+          if pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 5 --timeout 60 -r requirements.txt; then
+            echo "✅ Installation successful with trusted hosts"
+          else
+            echo "❌ Trusted hosts failed, trying with alternative mirror..."
+            if pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn --retries 5 --timeout 60 -r requirements.txt; then
+              echo "✅ Installation successful with alternative mirror"
+            else
+              echo "❌ All installation methods failed, trying individual packages..."
+              # Install packages one by one to isolate problematic ones
+              grep -v '^#' requirements.txt | grep -v '^$' | while read requirement; do
+                echo "Installing: $requirement"
+                for attempt in 1 2 3; do
+                  if pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 3 --timeout 30 "$requirement"; then
+                    echo "✅ Successfully installed: $requirement"
+                    break
+                  else
+                    echo "⚠️  Attempt $attempt failed for: $requirement"
+                    sleep 5
+                  fi
+                done
+              done
+            fi
+          fi
+        fi
     
     - name: Create auth directory
       run: mkdir -p config/auth

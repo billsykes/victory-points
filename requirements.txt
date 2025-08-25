@@ -1,18 +1,22 @@
-# Yahoo Fantasy Sports API
-yfpy>=13.0.0
+# Yahoo Fantasy Sports API - pinned to avoid build issues
+yfpy==13.1.0
 
-# Data processing
-pandas>=2.1.0
-numpy>=1.26.0
+# Data processing - stable versions
+pandas==2.1.4
+numpy==1.26.4
 
 # Date/time handling
-python-dateutil>=2.8.2
+python-dateutil==2.8.2
 
 # HTTP requests (backup for API calls)
-requests>=2.31.0
+requests==2.31.0
 
 # JSON handling and utilities
-python-dotenv>=1.0.0
+python-dotenv==1.0.1
 
 # Logging
-colorlog>=6.8.0
+colorlog==6.8.2
+
+# Additional dependencies to ensure compatibility
+setuptools>=65.0.0
+wheel>=0.41.0
