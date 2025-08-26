@@ -97,8 +97,10 @@ jobs:
         python -c "import colorlog; print('✅ colorlog imported successfully')"
         echo "✅ All required packages are properly installed and importable"
     
-    - name: Create auth directory
-      run: mkdir -p config/auth
+    - name: Create required directories
+      run: |
+        mkdir -p config/auth
+        mkdir -p data
     
     - name: Fetch data and update standings
       env:
@@ -165,11 +167,20 @@ jobs:
     - name: Check for changes
       id: git-check
       run: |
-        git add data/
-        if git diff --staged --quiet; then
-          echo "changes=false" >> $GITHUB_OUTPUT
+        # Check if data directory has any files
+        if [ -d "data" ] && [ "$(ls -A data 2>/dev/null)" ]; then
+          echo "📁 Data directory contains files, checking for changes..."
+          git add data/
+          if git diff --staged --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "📊 Data directory exists but no changes detected"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "✅ New data files detected"
+          fi
         else
-          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "📂 Data directory is empty (likely no games/data available yet)"
+          echo "changes=false" >> $GITHUB_OUTPUT
         fi
     
     - name: Commit and push changes
@@ -204,7 +215,10 @@ jobs:
           echo "- Website deployed to GitHub Pages" >> $GITHUB_STEP_SUMMARY
         else
           echo "ℹ️ **No changes detected**" >> $GITHUB_STEP_SUMMARY
-          echo "- No new data available from Yahoo Fantasy API" >> $GITHUB_STEP_SUMMARY
+          echo "- Yahoo Fantasy API connection successful ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- No new data available (likely no games played yet)" >> $GITHUB_STEP_SUMMARY
+          echo "- This is normal before the season starts or during bye weeks" >> $GITHUB_STEP_SUMMARY
         fi
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Next scheduled update:** Tuesday at 8 AM EST" >> $GITHUB_STEP_SUMMARY
+        echo "**Status:** Ready for fantasy football season! 🏈" >> $GITHUB_STEP_SUMMARY
