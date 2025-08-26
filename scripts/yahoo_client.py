@@ -102,7 +102,7 @@ class YahooFantasyClient:
     def _initialize_non_interactive(self):
         """Initialize in non-interactive mode using existing tokens"""
         # Check for existing OAuth tokens in environment variables
-        required_tokens = {
+        oauth_tokens = {
             'YAHOO_ACCESS_TOKEN': os.getenv('YAHOO_ACCESS_TOKEN'),
             'YAHOO_REFRESH_TOKEN': os.getenv('YAHOO_REFRESH_TOKEN'),
             'YAHOO_GUID': os.getenv('YAHOO_GUID'),
@@ -111,14 +111,30 @@ class YahooFantasyClient:
         }
         
         # Check if we have the essential tokens
-        if required_tokens['YAHOO_ACCESS_TOKEN'] and required_tokens['YAHOO_REFRESH_TOKEN']:
-            logger.info("Found OAuth tokens in environment variables")
+        essential_tokens = oauth_tokens['YAHOO_ACCESS_TOKEN'] and oauth_tokens['YAHOO_REFRESH_TOKEN']
+        
+        if essential_tokens:
+            logger.info("Found essential OAuth tokens in environment variables")
             
-            # Create a comprehensive .env file with all OAuth tokens
+            # Create .env file with all available OAuth tokens
             env_content = []
-            for key, value in required_tokens.items():
-                if value:  # Only add non-empty values
-                    env_content.append(f"{key}={value}")
+            valid_tokens = 0
+            
+            for key, value in oauth_tokens.items():
+                if value and value != 'None' and value.strip():  # Only add valid, non-None values
+                    # Validate token format to avoid header issues
+                    cleaned_value = value.strip()
+                    
+                    # Check for problematic characters that might cause header issues
+                    if any(ord(char) > 127 or char in '\r\n\t' for char in cleaned_value):
+                        logger.warning(f"Token {key} contains invalid characters, skipping")
+                        continue
+                    
+                    env_content.append(f"{key}={cleaned_value}")
+                    valid_tokens += 1
+                    logger.debug(f"Added {key}: {cleaned_value[:10]}...")  # Log first 10 chars for debugging
+                else:
+                    logger.debug(f"Skipping {key}: value is None or empty")
             
             # Also add the consumer credentials to .env for yfpy
             env_content.extend([
@@ -131,9 +147,15 @@ class YahooFantasyClient:
             with open('.env', 'w') as f:  # Overwrite instead of append
                 f.write(env_file_content)
             
-            logger.info(f"Written {len(env_content)} OAuth parameters to .env file")
+            logger.info(f"Written {valid_tokens} OAuth tokens and 2 consumer credentials to .env file")
+            
+            # Debug: Show which tokens were written (without exposing full values)
+            for key, value in oauth_tokens.items():
+                if value and value != 'None' and value.strip():
+                    logger.info(f"Token {key}: length={len(value)}, first_chars={value[:6]}...")
         else:
             logger.warning("Missing essential OAuth tokens (ACCESS_TOKEN or REFRESH_TOKEN)")
+            logger.info("Available tokens: " + ", ".join([k for k, v in oauth_tokens.items() if v]))
         
         # Try to initialize with all available authentication data
         self.yahoo_query = YahooFantasySportsQuery(

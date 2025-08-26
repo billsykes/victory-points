@@ -98,19 +98,34 @@ def generate_tokens():
             print("=" * 60)
             print("📋 Add these as GitHub Secrets:")
             
-            # Display all tokens that were found
+            # Display tokens with clear instructions
+            tokens_to_add = []
+            optional_tokens = []
+            
             for key, value in oauth_tokens.items():
-                if value:  # Only show non-empty values
+                if value and value != 'None':  # Valid token found
                     print(f"   {key}: {value}")
-                else:
-                    print(f"   {key}: (not found - will use default)")
+                    tokens_to_add.append(key)
+                else:  # Token is None or missing
+                    print(f"   {key}: (skip - not needed)")
+                    optional_tokens.append(key)
             
             print("\n🔧 Steps to add GitHub Secrets:")
             print("   1. Go to your GitHub repository")
             print("   2. Settings → Secrets and variables → Actions")
             print("   3. Click 'New repository secret'")
-            print("   4. Add all the tokens shown above")
-            print("   Note: If a token shows '(not found)', you can skip adding it")
+            print("   4. Add ONLY the tokens that have actual values above")
+            print("   5. DO NOT add secrets for tokens that say '(skip - not needed)'")
+            
+            if tokens_to_add:
+                print(f"\n✅ ADD these {len(tokens_to_add)} secrets:")
+                for token in tokens_to_add:
+                    print(f"   ✓ {token}")
+            
+            if optional_tokens:
+                print(f"\n❌ SKIP these {len(optional_tokens)} tokens:")
+                for token in optional_tokens:
+                    print(f"   ✗ {token} (do not add this secret)")
             
             print("\n📝 Required Secrets Summary:")
             print("   - YAHOO_CONSUMER_KEY (you already have this)")

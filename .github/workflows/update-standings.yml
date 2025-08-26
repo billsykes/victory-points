@@ -130,6 +130,29 @@ jobs:
         python -c "import yahoo_client; print('✅ yahoo_client imported successfully')"
         cd ..
         
+        # Debug OAuth tokens (safely, without exposing full values)
+        echo "=== OAuth Token Debug Info ==="
+        echo "YAHOO_ACCESS_TOKEN length: ${#YAHOO_ACCESS_TOKEN}"
+        echo "YAHOO_REFRESH_TOKEN length: ${#YAHOO_REFRESH_TOKEN}"
+        echo "YAHOO_ACCESS_TOKEN first 10 chars: ${YAHOO_ACCESS_TOKEN:0:10}..."
+        echo "YAHOO_REFRESH_TOKEN first 10 chars: ${YAHOO_REFRESH_TOKEN:0:10}..."
+        if [ -n "$YAHOO_GUID" ]; then
+          echo "YAHOO_GUID length: ${#YAHOO_GUID}"
+          echo "YAHOO_GUID first 10 chars: ${YAHOO_GUID:0:10}..."
+        else
+          echo "YAHOO_GUID: not set"
+        fi
+        if [ -n "$YAHOO_TOKEN_TIME" ]; then
+          echo "YAHOO_TOKEN_TIME: $YAHOO_TOKEN_TIME"
+        else
+          echo "YAHOO_TOKEN_TIME: not set"
+        fi
+        if [ -n "$YAHOO_TOKEN_TYPE" ]; then
+          echo "YAHOO_TOKEN_TYPE: $YAHOO_TOKEN_TYPE"
+        else
+          echo "YAHOO_TOKEN_TYPE: not set"
+        fi
+        
         # Run the script with proper path
         if [ "${{ github.event.inputs.all_weeks }}" = "true" ]; then
           cd scripts && python fetch_data.py --all-weeks
