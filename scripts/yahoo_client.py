@@ -102,19 +102,40 @@ class YahooFantasyClient:
     def _initialize_non_interactive(self):
         """Initialize in non-interactive mode using existing tokens"""
         # Check for existing OAuth tokens in environment variables
-        access_token = os.getenv('YAHOO_ACCESS_TOKEN')
-        refresh_token = os.getenv('YAHOO_REFRESH_TOKEN')
+        required_tokens = {
+            'YAHOO_ACCESS_TOKEN': os.getenv('YAHOO_ACCESS_TOKEN'),
+            'YAHOO_REFRESH_TOKEN': os.getenv('YAHOO_REFRESH_TOKEN'),
+            'YAHOO_GUID': os.getenv('YAHOO_GUID'),
+            'YAHOO_TOKEN_TIME': os.getenv('YAHOO_TOKEN_TIME'),
+            'YAHOO_TOKEN_TYPE': os.getenv('YAHOO_TOKEN_TYPE', 'bearer')
+        }
         
-        if access_token and refresh_token:
+        # Check if we have the essential tokens
+        if required_tokens['YAHOO_ACCESS_TOKEN'] and required_tokens['YAHOO_REFRESH_TOKEN']:
             logger.info("Found OAuth tokens in environment variables")
-            # Create a temporary .env file with the tokens
-            env_content = f"""YAHOO_ACCESS_TOKEN={access_token}
-YAHOO_REFRESH_TOKEN={refresh_token}
-"""
-            with open('.env', 'a') as f:
-                f.write(env_content)
+            
+            # Create a comprehensive .env file with all OAuth tokens
+            env_content = []
+            for key, value in required_tokens.items():
+                if value:  # Only add non-empty values
+                    env_content.append(f"{key}={value}")
+            
+            # Also add the consumer credentials to .env for yfpy
+            env_content.extend([
+                f"YAHOO_CONSUMER_KEY={self.config['consumer_key']}",
+                f"YAHOO_CONSUMER_SECRET={self.config['consumer_secret']}"
+            ])
+            
+            # Write all tokens to .env file for yfpy to read
+            env_file_content = "\n".join(env_content) + "\n"
+            with open('.env', 'w') as f:  # Overwrite instead of append
+                f.write(env_file_content)
+            
+            logger.info(f"Written {len(env_content)} OAuth parameters to .env file")
+        else:
+            logger.warning("Missing essential OAuth tokens (ACCESS_TOKEN or REFRESH_TOKEN)")
         
-        # Try to initialize without browser callback
+        # Try to initialize with all available authentication data
         self.yahoo_query = YahooFantasySportsQuery(
             league_id=self.config['league_id'],
             game_code=self.config['game_key'],
@@ -123,7 +144,8 @@ YAHOO_REFRESH_TOKEN={refresh_token}
             yahoo_consumer_secret=self.config['consumer_secret'],
             env_file_location=Path.cwd(),
             save_token_data_to_env_file=False,  # Don't try to save in CI
-            browser_callback=False  # Disable browser-based OAuth
+            browser_callback=False,  # Disable browser-based OAuth
+            env_var_fallback=True  # Enable reading from environment variables
         )
         logger.info("Yahoo Fantasy client initialized in non-interactive mode")
     
