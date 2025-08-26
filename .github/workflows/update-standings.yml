@@ -104,10 +104,13 @@ jobs:
       env:
         YAHOO_CONSUMER_KEY: ${{ secrets.YAHOO_CONSUMER_KEY }}
         YAHOO_CONSUMER_SECRET: ${{ secrets.YAHOO_CONSUMER_SECRET }}
+        YAHOO_ACCESS_TOKEN: ${{ secrets.YAHOO_ACCESS_TOKEN }}
+        YAHOO_REFRESH_TOKEN: ${{ secrets.YAHOO_REFRESH_TOKEN }}
         LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
         GAME_KEY: nfl
         CURRENT_SEASON: 2024
         PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/scripts
+        CI: true
       run: |
         # Verify we're in the right directory and show Python path
         echo "Current directory: $(pwd)"

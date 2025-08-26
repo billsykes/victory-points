@@ -70,21 +70,62 @@ class YahooFantasyClient:
             auth_dir = Path("config/auth")
             auth_dir.mkdir(parents=True, exist_ok=True)
             
-            self.yahoo_query = YahooFantasySportsQuery(
-                league_id=self.config['league_id'],
-                game_code=self.config['game_key'],
-                game_id=None,  # Will be determined automatically
-                yahoo_consumer_key=self.config['consumer_key'],
-                yahoo_consumer_secret=self.config['consumer_secret'],
-                env_file_location=Path.cwd(),  # Path object, not string
-                save_token_data_to_env_file=True,  # Save tokens to .env file
-                browser_callback=True  # Enable browser-based OAuth
-            )
-            logger.info("Yahoo Fantasy client initialized successfully")
+            # Check if we're running in a non-interactive environment (like GitHub Actions)
+            is_non_interactive = os.getenv('CI') == 'true' or not os.isatty(0)
             
+            if is_non_interactive:
+                logger.info("Running in non-interactive mode, checking for pre-existing tokens...")
+                # In CI/non-interactive mode, try to use existing tokens or fail gracefully
+                self._initialize_non_interactive()
+            else:
+                logger.info("Running in interactive mode, enabling browser OAuth...")
+                self._initialize_interactive()
+                
         except Exception as e:
             logger.error(f"Failed to initialize Yahoo client: {e}")
             raise
+    
+    def _initialize_interactive(self):
+        """Initialize with interactive browser OAuth"""
+        self.yahoo_query = YahooFantasySportsQuery(
+            league_id=self.config['league_id'],
+            game_code=self.config['game_key'],
+            game_id=None,  # Will be determined automatically
+            yahoo_consumer_key=self.config['consumer_key'],
+            yahoo_consumer_secret=self.config['consumer_secret'],
+            env_file_location=Path.cwd(),  # Path object, not string
+            save_token_data_to_env_file=True,  # Save tokens to .env file
+            browser_callback=True  # Enable browser-based OAuth
+        )
+        logger.info("Yahoo Fantasy client initialized with interactive OAuth")
+    
+    def _initialize_non_interactive(self):
+        """Initialize in non-interactive mode using existing tokens"""
+        # Check for existing OAuth tokens in environment variables
+        access_token = os.getenv('YAHOO_ACCESS_TOKEN')
+        refresh_token = os.getenv('YAHOO_REFRESH_TOKEN')
+        
+        if access_token and refresh_token:
+            logger.info("Found OAuth tokens in environment variables")
+            # Create a temporary .env file with the tokens
+            env_content = f"""YAHOO_ACCESS_TOKEN={access_token}
+YAHOO_REFRESH_TOKEN={refresh_token}
+"""
+            with open('.env', 'a') as f:
+                f.write(env_content)
+        
+        # Try to initialize without browser callback
+        self.yahoo_query = YahooFantasySportsQuery(
+            league_id=self.config['league_id'],
+            game_code=self.config['game_key'],
+            game_id=None,  # Will be determined automatically
+            yahoo_consumer_key=self.config['consumer_key'],
+            yahoo_consumer_secret=self.config['consumer_secret'],
+            env_file_location=Path.cwd(),
+            save_token_data_to_env_file=False,  # Don't try to save in CI
+            browser_callback=False  # Disable browser-based OAuth
+        )
+        logger.info("Yahoo Fantasy client initialized in non-interactive mode")
     
     def get_league_info(self) -> Dict[str, Any]:
         """Get basic league information"""
