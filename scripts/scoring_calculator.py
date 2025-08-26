@@ -82,13 +82,14 @@ class ScoringCalculator:
         
         return h2h_results
     
-    def _calculate_performance_results(self, week_scores: List[Dict]) -> Dict[str, str]:
-        """Calculate performance-based win/loss results
+    def _calculate_performance_results(self, week_scores: List[Dict]) -> Dict[str, float]:
+        """Calculate performance-based win/loss results with tie handling
         
-        Teams in top half get 'W', bottom half get 'L'
+        Teams in top half get 1.0 (win), bottom half get 0.0 (loss).
+        Teams tied at the boundary split the points.
         
         Returns:
-            Dictionary mapping team_id to 'W' or 'L'
+            Dictionary mapping team_id to performance wins (float between 0.0 and 1.0)
         """
         # Scores should already be sorted by score descending
         sorted_scores = sorted(week_scores, key=lambda x: x['score'], reverse=True)
@@ -98,18 +99,47 @@ class ScoringCalculator:
         
         performance_results = {}
         
+        # Group teams by score to handle ties
+        score_groups = {}
         for i, team_data in enumerate(sorted_scores):
-            team_id = team_data['team_id']
+            score = team_data['score']
+            if score not in score_groups:
+                score_groups[score] = []
+            score_groups[score].append((i, team_data['team_id']))
+        
+        # Process each score group
+        for score, teams_with_positions in score_groups.items():
+            positions = [pos for pos, _ in teams_with_positions]
+            team_ids = [team_id for _, team_id in teams_with_positions]
             
-            if i < top_half_size:
-                performance_results[team_id] = 'W'
+            # Check if this group straddles the top/bottom half boundary
+            min_pos = min(positions)
+            max_pos = max(positions)
+            
+            if max_pos < top_half_size:
+                # All teams in this group are in top half - all get wins
+                for team_id in team_ids:
+                    performance_results[team_id] = 1.0
+            elif min_pos >= top_half_size:
+                # All teams in this group are in bottom half - all get losses
+                for team_id in team_ids:
+                    performance_results[team_id] = 0.0
             else:
-                performance_results[team_id] = 'L'
+                # Group straddles the boundary - split the points
+                teams_in_top = sum(1 for pos in positions if pos < top_half_size)
+                teams_in_bottom = len(teams_with_positions) - teams_in_top
+                
+                # Calculate the split: each team gets the average of wins they would get
+                total_wins = teams_in_top * 1.0 + teams_in_bottom * 0.0
+                wins_per_team = total_wins / len(teams_with_positions)
+                
+                for team_id in team_ids:
+                    performance_results[team_id] = wins_per_team
         
         return performance_results
     
     def _combine_results(self, h2h_results: Dict[str, str], 
-                        performance_results: Dict[str, str],
+                        performance_results: Dict[str, float],
                         week_scores: List[Dict]) -> List[Dict[str, Any]]:
         """Combine head-to-head and performance results
         
@@ -127,18 +157,27 @@ class ScoringCalculator:
                 
             team_data = team_score_map[team_id]
             h2h_result = h2h_results[team_id]
-            performance_result = performance_results[team_id]
+            performance_wins_float = performance_results[team_id]
             
             # Calculate wins and losses
             h2h_wins = 1 if h2h_result == 'W' else 0
             h2h_losses = 1 if h2h_result == 'L' else 0
             h2h_ties = 1 if h2h_result == 'T' else 0
             
-            performance_wins = 1 if performance_result == 'W' else 0
-            performance_losses = 1 if performance_result == 'L' else 0
+            # Performance results are now float values (0.0 to 1.0)
+            performance_wins = performance_wins_float
+            performance_losses = 1.0 - performance_wins_float
             
             total_wins = h2h_wins + performance_wins
             total_losses = h2h_losses + performance_losses
+            
+            # Convert performance result back to display format
+            if performance_wins_float == 1.0:
+                performance_result_display = 'W'
+            elif performance_wins_float == 0.0:
+                performance_result_display = 'L'
+            else:
+                performance_result_display = f'T({performance_wins_float:.1f})'
             
             team_result = {
                 'team_id': team_id,
@@ -146,7 +185,7 @@ class ScoringCalculator:
                 'team_key': team_data['team_key'],
                 'week_score': team_data['score'],
                 'h2h_result': h2h_result,
-                'performance_result': performance_result,
+                'performance_result': performance_result_display,
                 'h2h_wins': h2h_wins,
                 'h2h_losses': h2h_losses,
                 'h2h_ties': h2h_ties,
