@@ -235,10 +235,13 @@ class ScoringCalculator:
         if not weeks_data:
             return {}
         
+        # Sort weeks data by week number to ensure proper ordering
+        weeks_data_sorted = sorted(weeks_data, key=lambda x: x['week'])
+        
         # Initialize team totals
         team_totals = {}
         
-        for week_data in weeks_data:
+        for week_data in weeks_data_sorted:
             for team_result in week_data['team_results']:
                 team_id = team_result['team_id']
                 
@@ -255,7 +258,8 @@ class ScoringCalculator:
                         'total_wins': 0,
                         'total_losses': 0,
                         'total_points': 0,
-                        'weeks_played': 0
+                        'weeks_played': 0,
+                        'recent_scores': []  # Track recent week scores for tiebreaking
                     }
                 
                 # Add week totals
@@ -269,6 +273,16 @@ class ScoringCalculator:
                 totals['total_losses'] += team_result['total_losses']
                 totals['total_points'] += team_result['week_score']
                 totals['weeks_played'] += 1
+                
+                # Store week score for tiebreaking (most recent first)
+                totals['recent_scores'].append({
+                    'week': week_data['week'],
+                    'score': team_result['week_score']
+                })
+        
+        # Sort recent scores by week (most recent first) for each team
+        for team_id, totals in team_totals.items():
+            totals['recent_scores'].sort(key=lambda x: x['week'], reverse=True)
         
         # Calculate additional stats
         for team_id, totals in team_totals.items():
@@ -280,9 +294,9 @@ class ScoringCalculator:
                 totals['average_score'] = 0
                 totals['win_percentage'] = 0
         
-        # Sort standings by total wins, then by total points
+        # Enhanced tiebreaker system following Yahoo Fantasy Football standards
         standings = list(team_totals.values())
-        standings.sort(key=lambda x: (x['total_wins'], x['total_points']), reverse=True)
+        standings.sort(key=lambda x: self._create_tiebreaker_key(x), reverse=True)
         
         # Add ranking
         for i, team in enumerate(standings):
@@ -290,12 +304,55 @@ class ScoringCalculator:
         
         season_standings = {
             'last_updated': datetime.now().isoformat(),
-            'weeks_included': len(weeks_data),
+            'weeks_included': len(weeks_data_sorted),
             'standings': standings,
-            'season_summary': self._generate_season_summary(standings, weeks_data)
+            'season_summary': self._generate_season_summary(standings, weeks_data_sorted)
         }
         
         return season_standings
+    
+    def _create_tiebreaker_key(self, team: Dict[str, Any]) -> Tuple:
+        """Create a tiebreaker key following Yahoo Fantasy Football standards
+        
+        Tiebreaker hierarchy:
+        1. Total Victory Points (total_wins) - Primary ranking criteria
+        2. Total Fantasy Points (total_points) - Yahoo's #1 tiebreaker  
+        3. Most Recent Week Score - Yahoo's #2 tiebreaker
+        4. Second Most Recent Week Score - Yahoo's #3 tiebreaker
+        5. Continue back through all weeks - Yahoo's pattern
+        6. Team name (alphabetical) - Final deterministic tiebreaker
+        
+        Args:
+            team: Team dictionary with stats and recent_scores
+            
+        Returns:
+            Tuple for sorting (higher values rank better)
+        """
+        tiebreaker_key = [
+            team['total_wins'],      # Primary: Victory Points
+            team['total_points'],    # Secondary: Total points (Yahoo standard)
+        ]
+        
+        # Add recent week scores in chronological order (most recent first)
+        # This follows Yahoo's pattern of going back week by week
+        recent_scores = team.get('recent_scores', [])
+        for week_score in recent_scores:
+            tiebreaker_key.append(week_score['score'])
+        
+        # Pad with zeros if team has fewer weeks (shouldn't happen in practice)
+        # This ensures all teams have the same number of tiebreaker elements
+        max_weeks = 18  # Standard NFL season length
+        while len(tiebreaker_key) < (2 + max_weeks):
+            tiebreaker_key.append(0.0)
+        
+        # Final tiebreaker: team name (reverse alphabetical so A comes before Z when sorting desc)
+        # We negate the comparison by using a very small negative value
+        team_name = team.get('team_name', 'ZZZ')
+        # Convert to negative value so alphabetically earlier names rank higher
+        name_tiebreaker = -ord(team_name[0]) if team_name else -ord('Z')
+        tiebreaker_key.append(name_tiebreaker)
+        
+        return tuple(tiebreaker_key)
     
     def _generate_season_summary(self, standings: List[Dict], weeks_data: List[Dict]) -> Dict[str, Any]:
         """Generate season summary statistics"""
