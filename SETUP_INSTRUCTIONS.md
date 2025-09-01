@@ -67,6 +67,7 @@ Choose one of these methods:
    LEAGUE_ID=your_actual_league_id
    GAME_KEY=nfl
    CURRENT_SEASON=2024
+   LEAGUE_RULES_URL=https://docs.google.com/document/d/your_rules_doc_id/edit
    ```
 
 #### Option B: Configuration File
@@ -125,6 +126,20 @@ python scripts/fetch_data.py --all-weeks
    python -m http.server 8000
    # Then visit http://localhost:8000
    ```
+
+### External Links Configuration (Optional)
+
+The website can display links to your league and league rules if configured:
+
+1. **League Link**: Automatically generated from your `LEAGUE_ID` environment variable
+2. **Rules Link**: Add `LEAGUE_RULES_URL` to your `.env` file to show a "League Rules" link
+
+Example:
+```
+LEAGUE_RULES_URL=https://docs.google.com/document/d/your_rules_doc_id/edit
+```
+
+These links will only appear on the website if the corresponding environment variables are configured. The league link uses your existing `LEAGUE_ID` to create a direct link to your Yahoo Fantasy league.
 
 ## 🤖 Automation Setup (Optional)
 

@@ -14,6 +14,7 @@ sys.path.append(str(Path(__file__).parent))
 
 from yahoo_client import YahooFantasyClient
 from scoring_calculator import ScoringCalculator
+from generate_website_config import generate_website_config
 
 # Configure logging
 logging.basicConfig(
@@ -158,6 +159,14 @@ def main():
             season_standings = calculator.calculate_season_standings(weeks_data)
             calculator.save_season_standings(season_standings)
             print_season_standings(season_standings)
+            
+            # Generate website configuration
+            logger.info("Generating website configuration...")
+            try:
+                generate_website_config(args.output_dir)
+            except Exception as e:
+                logger.warning(f"Failed to generate website configuration: {e}")
+            
             return 0
         
         # Get league info
@@ -190,6 +199,13 @@ def main():
                 season_standings = calculator.calculate_season_standings(weeks_data)
                 calculator.save_season_standings(season_standings)
                 print_season_standings(season_standings)
+        
+        # Generate website configuration
+        logger.info("Generating website configuration...")
+        try:
+            generate_website_config(args.output_dir)
+        except Exception as e:
+            logger.warning(f"Failed to generate website configuration: {e}")
         
         logger.info(f"Successfully processed {success_count} week(s)")
         return 0

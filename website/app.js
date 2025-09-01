@@ -8,13 +8,16 @@ class VictoryPointsApp {
         this.seasonData = null;
         this.weekData = {};
         this.availableWeeks = [];
+        this.config = null;
         
         this.init();
     }
     
     async init() {
         this.setupEventListeners();
+        await this.loadConfig();
         await this.loadData();
+        this.setupLeagueLinks();
     }
     
     setupEventListeners() {
@@ -24,6 +27,63 @@ class VictoryPointsApp {
         });
     }
     
+    async loadConfig() {
+        try {
+            const response = await fetch('../data/website_config.json');
+            if (response.ok) {
+                this.config = await response.json();
+                console.log('Loaded website configuration:', this.config);
+            } else {
+                console.log('No website configuration found, using defaults');
+                this.config = {
+                    league: { id: '', url: '', rules_url: '' },
+                    features: { show_league_link: false, show_rules_link: false }
+                };
+            }
+        } catch (error) {
+            console.log('Failed to load website configuration, using defaults:', error);
+            this.config = {
+                league: { id: '', url: '', rules_url: '' },
+                features: { show_league_link: false, show_rules_link: false }
+            };
+        }
+    }
+    
+    setupLeagueLinks() {
+        const leagueLinksContainer = document.getElementById('leagueLinks');
+        const leagueLink = document.getElementById('leagueLink');
+        const rulesLink = document.getElementById('rulesLink');
+        
+        if (!this.config) return;
+        
+        let hasVisibleLinks = false;
+        
+        // Setup league link
+        if (this.config.features.show_league_link && this.config.league.url) {
+            leagueLink.href = this.config.league.url;
+            leagueLink.style.display = 'inline-block';
+            hasVisibleLinks = true;
+        } else {
+            leagueLink.style.display = 'none';
+        }
+        
+        // Setup rules link
+        if (this.config.features.show_rules_link && this.config.league.rules_url) {
+            rulesLink.href = this.config.league.rules_url;
+            rulesLink.style.display = 'inline-block';
+            hasVisibleLinks = true;
+        } else {
+            rulesLink.style.display = 'none';
+        }
+        
+        // Show/hide the entire links container
+        if (hasVisibleLinks) {
+            leagueLinksContainer.style.display = 'block';
+        } else {
+            leagueLinksContainer.style.display = 'none';
+        }
+    }
+
     async loadData() {
         try {
             await this.loadSeasonStandings();

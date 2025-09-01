@@ -377,6 +377,38 @@ body {
     text-decoration: none;
 }
 
+/* League links */
+.league-links {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.links-grid {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.external-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+}
+
+.external-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+    text-decoration: none;
+}
+
 /* Breadcrumb navigation */
 .breadcrumb {
     margin-top: 1rem;
