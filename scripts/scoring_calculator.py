@@ -320,7 +320,6 @@ class ScoringCalculator:
         3. Most Recent Week Score - Yahoo's #2 tiebreaker
         4. Second Most Recent Week Score - Yahoo's #3 tiebreaker
         5. Continue back through all weeks - Yahoo's pattern
-        6. Team name (alphabetical) - Final deterministic tiebreaker
         
         Args:
             team: Team dictionary with stats and recent_scores
@@ -344,13 +343,6 @@ class ScoringCalculator:
         max_weeks = 18  # Standard NFL season length
         while len(tiebreaker_key) < (2 + max_weeks):
             tiebreaker_key.append(0.0)
-        
-        # Final tiebreaker: team name (reverse alphabetical so A comes before Z when sorting desc)
-        # We negate the comparison by using a very small negative value
-        team_name = team.get('team_name', 'ZZZ')
-        # Convert to negative value so alphabetically earlier names rank higher
-        name_tiebreaker = -ord(team_name[0]) if team_name else -ord('Z')
-        tiebreaker_key.append(name_tiebreaker)
         
         return tuple(tiebreaker_key)
     
