@@ -49,7 +49,8 @@ def main():
         
         # Get league info for context
         league_info = yahoo_client.get_league_info()
-        logger.info(f"Connected to league: {league_info['name']} (Season {league_info['season']})")
+        league_name = league_info['name'].decode('utf-8') if isinstance(league_info['name'], bytes) else str(league_info['name'])
+        logger.info(f"Connected to league: {league_name} (Season {league_info['season']})")
         
         # Initialize compliance checker
         checker = IRComplianceChecker(yahoo_client)
@@ -64,17 +65,17 @@ def main():
         
         # Print summary to console
         week = compliance_report['week']
-        total_violations = compliance_report['summary']['total_violations']
-        teams_with_violations = compliance_report['summary']['teams_with_violations']
+        total_violations = len([v for team in compliance_report.get('violations', []) for v in team.get('violations', [])])
+        teams_with_violations = len(compliance_report.get('violations', []))
         
         print(f"\n{'='*60}")
         print(f"IR COMPLIANCE CHECK RESULTS - Week {week}")
-        print(f"League: {league_info['name']}")
+        print(f"League: {league_name}")
         print(f"{'='*60}")
-        print(f"Total Teams Checked: {compliance_report['summary']['total_teams']}")
+        print(f"Total Teams Checked: {compliance_report.get('total_teams', 0)}")
         print(f"Violations Found: {total_violations}")
         print(f"Teams with Violations: {teams_with_violations}")
-        print(f"Compliant Teams: {compliance_report['summary']['compliant_teams']}")
+        print(f"Compliant Teams: {len(compliance_report.get('compliant_teams', []))}")
         
         if compliance_report['violations']:
             print(f"\n⚠️ VIOLATIONS DETECTED:")
@@ -104,7 +105,7 @@ def main():
                 subject, body = checker.generate_email_report(compliance_report)
                 
                 # Add league context
-                body = f"**League:** {league_info['name']} (Season {league_info['season']})\n\n" + body
+                body = f"**League:** {league_name} (Season {league_info['season']})\n\n" + body
                 
                 success = secure_notifier.send_ir_compliance_report(subject, body)
                 

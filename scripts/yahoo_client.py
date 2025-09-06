@@ -195,11 +195,20 @@ class YahooFantasyClient:
             team_list = []
             
             for team in teams:
+                # Handle manager information safely
+                manager_name = 'Unknown'
+                if hasattr(team, 'managers') and team.managers:
+                    manager = team.managers[0]
+                    if hasattr(manager, 'nickname'):
+                        manager_name = manager.nickname.decode('utf-8') if isinstance(manager.nickname, bytes) else str(manager.nickname)
+                    elif hasattr(manager, 'name'):
+                        manager_name = manager.name.decode('utf-8') if isinstance(manager.name, bytes) else str(manager.name)
+                
                 team_info = {
                     'team_id': team.team_id,
                     'team_key': team.team_key,
-                    'name': team.name,
-                    'manager': getattr(team, 'managers', [{}])[0].get('nickname', 'Unknown') if hasattr(team, 'managers') else 'Unknown'
+                    'name': team.name.decode('utf-8') if isinstance(team.name, bytes) else str(team.name),
+                    'manager': manager_name
                 }
                 team_list.append(team_info)
             
@@ -305,29 +314,45 @@ class YahooFantasyClient:
                 'ir_players': []
             }
             
-            for player in roster:
-                player_info = {
-                    'player_id': player.player_id,
-                    'player_key': player.player_key,
-                    'name': player.name.full if hasattr(player.name, 'full') else str(player.name),
-                    'position': getattr(player, 'primary_position', 'Unknown'),
-                    'team': getattr(player, 'editorial_team_abbr', 'Unknown'),
-                    'status': getattr(player, 'status', 'Unknown'),
-                    'injury_note': getattr(player, 'injury_note', ''),
-                    'selected_position': None,
-                    'is_ir_slot': False
-                }
-                
-                # Get selected position from roster positions
-                if hasattr(player, 'selected_position'):
-                    if hasattr(player.selected_position, 'position'):
-                        player_info['selected_position'] = player.selected_position.position
-                        # Check if player is in IR slot
-                        if player.selected_position.position in ['IR', 'IR+']:
-                            player_info['is_ir_slot'] = True
-                            roster_data['ir_players'].append(player_info)
-                
-                roster_data['players'].append(player_info)
+            # Extract players from roster object
+            players = roster.players if hasattr(roster, 'players') else []
+            
+            for player in players:
+                try:
+                    # Safely extract player name
+                    player_name = 'Unknown'
+                    if hasattr(player, 'name'):
+                        if hasattr(player.name, 'full'):
+                            player_name = player.name.full.decode('utf-8') if isinstance(player.name.full, bytes) else str(player.name.full)
+                        else:
+                            player_name = str(player.name)
+                    
+                    player_info = {
+                        'player_id': getattr(player, 'player_id', 'Unknown'),
+                        'player_key': getattr(player, 'player_key', 'Unknown'),
+                        'name': player_name,
+                        'position': getattr(player, 'primary_position', 'Unknown'),
+                        'team': getattr(player, 'editorial_team_abbr', 'Unknown'),
+                        'status': getattr(player, 'status', 'Unknown'),
+                        'injury_note': getattr(player, 'injury_note', ''),
+                        'selected_position': None,
+                        'is_ir_slot': False
+                    }
+                    
+                    # Get selected position from roster positions
+                    if hasattr(player, 'selected_position'):
+                        if hasattr(player.selected_position, 'position'):
+                            player_info['selected_position'] = player.selected_position.position
+                            # Check if player is in IR slot
+                            if player.selected_position.position in ['IR', 'IR+']:
+                                player_info['is_ir_slot'] = True
+                                roster_data['ir_players'].append(player_info)
+                    
+                    roster_data['players'].append(player_info)
+                    
+                except Exception as e:
+                    logger.warning(f"Failed to process player in roster: {e}")
+                    continue
             
             return roster_data
             
