@@ -40,9 +40,12 @@ class IRComplianceChecker:
         self.yahoo_client = yahoo_client
         self.ir_eligible_statuses = [
             'IR',    # Injured Reserve
+            'IR-R',  # Injured Reserve - Return
             'O',     # Out
             'PUP',   # Physically Unable to Perform
+            'PUP-R', # Physically Unable to Perform - Return
             'NFI',   # Non-Football Injury
+            'NFI-R', # Non-Football Injury - Return
             'SUSP',  # Suspended (some leagues allow this)
             'NA'     # Not Active
         ]

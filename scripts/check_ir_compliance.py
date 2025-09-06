@@ -140,8 +140,9 @@ def main():
         else:
             print(f"\n📧 Email notification skipped (--no-email)")
         
-        # Return appropriate exit code
-        return 0 if total_violations == 0 else 1
+        # Return success - violations found is not an error condition
+        # Exit code 1 should only be for actual script errors
+        return 0
         
     except Exception as e:
         logger.error(f"IR compliance check failed: {e}")
