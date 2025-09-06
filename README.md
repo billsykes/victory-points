@@ -34,6 +34,20 @@ Each team gets **two** results each week:
 
 4. Open `website/index.html` to view standings
 
+## Features
+
+### Victory Points Scoring
+- **Head-to-Head**: Win or loss against weekly opponent (standard Yahoo scoring)
+- **Performance**: Win if team scores in top half of league that week
+
+### IR Compliance Monitoring
+- **Daily Checks**: Automated verification of IR slot usage
+- **Smart Notifications**: GitHub Issues created for violations only (no spam!)
+- **Professional Workflow**: Assign, track, and resolve violations
+- **Multiple Alert Options**: GitHub Issues, Slack, Discord, or email
+
 ## Automation
 
-The project uses GitHub Actions to automatically fetch data and update standings weekly.
+The project uses GitHub Actions to:
+- **Weekly**: Fetch data and update standings
+- **Daily**: Check IR slot compliance and send violation reports

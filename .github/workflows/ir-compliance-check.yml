@@ -1,0 +1,283 @@
+name: IR Compliance Check
+
+on:
+  schedule:
+    # Run daily at 9 AM EST (14:00 UTC) during fantasy football season
+    - cron: '0 14 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      week:
+        description: 'Specific week to check (leave empty for current week)'
+        required: false
+        type: string
+      force_email:
+        description: 'Send email even if no violations found'
+        required: false
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Perform check without sending emails'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  ir-compliance-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Disable IPv6 to prevent connection issues
+      run: sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        
+        # Configure pip for better reliability
+        pip config set global.timeout 60
+        pip config set global.retries 5
+        pip config set global.disable-pip-version-check true
+        
+        # Function to try installation with different methods
+        install_requirements() {
+          local method="$1"
+          local cmd="$2"
+          echo "=== Trying installation method: $method ==="
+          if eval "$cmd"; then
+            echo "✅ Installation successful with $method"
+            return 0
+          else
+            echo "❌ Installation failed with $method"
+            return 1
+          fi
+        }
+        
+        # Try different installation methods in order
+        install_requirements "primary PyPI" "pip install --verbose --retries 5 --timeout 60 -r requirements.txt" || \
+        install_requirements "trusted hosts" "pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 5 --timeout 60 -r requirements.txt" || \
+        install_requirements "alternative mirror" "pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn --retries 5 --timeout 60 -r requirements.txt" || \
+        {
+          echo "❌ All standard methods failed, trying individual package installation..."
+          # Install essential packages individually
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org setuptools wheel
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org numpy==1.26.4
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org pandas==2.1.4
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org requests==2.31.0
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dateutil==2.8.2
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dotenv==1.0.1
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org colorlog==6.8.2
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org "yfpy>=16.0.0,<17.0.0"
+        }
+    
+    - name: Verify installation
+      run: |
+        echo "=== Verifying installed packages ==="
+        python -c "import sys; print(f'Python version: {sys.version}')"
+        python -c "import yfpy; print('✅ yfpy imported successfully')"
+        python -c "from yfpy import YahooFantasySportsQuery; print('✅ YahooFantasySportsQuery imported successfully')"
+        python -c "import pandas; print(f'pandas version: {pandas.__version__}')"
+        python -c "import requests; print(f'requests version: {requests.__version__}')"
+        python -c "import numpy; print(f'numpy version: {numpy.__version__}')"
+        python -c "import dotenv; print('✅ python-dotenv imported successfully')"
+        python -c "import colorlog; print('✅ colorlog imported successfully')"
+        python -c "import smtplib; print('✅ smtplib (email support) available')"
+        echo "✅ All required packages are properly installed and importable"
+    
+    - name: Create required directories
+      run: |
+        mkdir -p config/auth
+        mkdir -p data
+    
+    - name: Check IR Compliance
+      env:
+        YAHOO_CONSUMER_KEY: ${{ secrets.YAHOO_CONSUMER_KEY }}
+        YAHOO_CONSUMER_SECRET: ${{ secrets.YAHOO_CONSUMER_SECRET }}
+        YAHOO_ACCESS_TOKEN: ${{ secrets.YAHOO_ACCESS_TOKEN }}
+        YAHOO_REFRESH_TOKEN: ${{ secrets.YAHOO_REFRESH_TOKEN }}
+        YAHOO_GUID: ${{ secrets.YAHOO_GUID }}
+        YAHOO_TOKEN_TIME: ${{ secrets.YAHOO_TOKEN_TIME }}
+        YAHOO_TOKEN_TYPE: ${{ secrets.YAHOO_TOKEN_TYPE }}
+        LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
+        GAME_KEY: nfl
+        CURRENT_SEASON: 2024
+        # Secure notification configuration (choose ONE)
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+        COMMISSIONER_EMAIL: ${{ secrets.COMMISSIONER_EMAIL }}
+        # Legacy email (less secure)
+        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        # IR compliance configuration
+        IR_ELIGIBLE_STATUSES: ${{ secrets.IR_ELIGIBLE_STATUSES }}
+        ALWAYS_SEND_IR_REPORT: ${{ secrets.ALWAYS_SEND_IR_REPORT }}
+        # GitHub Issues configuration
+        FILE_NOTIFICATIONS_COMMIT: ${{ secrets.FILE_NOTIFICATIONS_COMMIT }}
+        GITHUB_ISSUES_FOR_ALL_REPORTS: ${{ secrets.GITHUB_ISSUES_FOR_ALL_REPORTS }}
+        GITHUB_ISSUE_ASSIGNEE: ${{ secrets.GITHUB_ISSUE_ASSIGNEE }}
+        PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/scripts
+        CI: true
+      run: |
+        # Verify we're in the right directory and show Python path
+        echo "Current directory: $(pwd)"
+        echo "Python path: $PYTHONPATH"
+        echo "Files in scripts/:"
+        ls -la scripts/
+        
+        # Test Python imports before running
+        echo "Testing Python imports..."
+        cd scripts
+        python -c "import sys; print('Python sys.path:', sys.path)"
+        python -c "import yfpy; print('✅ yfpy imported successfully')"
+        python -c "from yfpy import YahooFantasySportsQuery; print('✅ YahooFantasySportsQuery imported successfully')"
+        python -c "import yahoo_client; print('✅ yahoo_client imported successfully')"
+        python -c "import ir_compliance_checker; print('✅ ir_compliance_checker imported successfully')"
+        python -c "import email_notifier; print('✅ email_notifier imported successfully')"
+        cd ..
+        
+        # Debug OAuth tokens (safely, without exposing full values)
+        echo "=== OAuth Token Debug Info ==="
+        echo "YAHOO_ACCESS_TOKEN length: ${#YAHOO_ACCESS_TOKEN}"
+        echo "YAHOO_REFRESH_TOKEN length: ${#YAHOO_REFRESH_TOKEN}"
+        echo "YAHOO_ACCESS_TOKEN first 10 chars: ${YAHOO_ACCESS_TOKEN:0:10}..."
+        echo "YAHOO_REFRESH_TOKEN first 10 chars: ${YAHOO_REFRESH_TOKEN:0:10}..."
+        
+        # Debug notification configuration (safely)
+        echo "=== Notification Configuration Debug ==="
+        echo "SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:+CONFIGURED}"
+        echo "DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL:+CONFIGURED}"
+        echo "SENDGRID_API_KEY: ${SENDGRID_API_KEY:+CONFIGURED}"
+        echo "COMMISSIONER_EMAIL: ${COMMISSIONER_EMAIL:-'NOT SET'}"
+        echo "SENDER_EMAIL (legacy): ${SENDER_EMAIL:-'NOT SET'}"
+        
+        # Build command arguments
+        COMMAND_ARGS=""
+        
+        if [ "${{ github.event.inputs.week }}" != "" ]; then
+          COMMAND_ARGS="$COMMAND_ARGS --week ${{ github.event.inputs.week }}"
+        fi
+        
+        if [ "${{ github.event.inputs.force_email }}" = "true" ]; then
+          COMMAND_ARGS="$COMMAND_ARGS --force-email"
+        fi
+        
+        if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+          COMMAND_ARGS="$COMMAND_ARGS --dry-run"
+        fi
+        
+        echo "Running IR compliance check with args: $COMMAND_ARGS"
+        
+        # Run the IR compliance check
+        cd scripts && python check_ir_compliance.py $COMMAND_ARGS
+    
+    - name: Check for new reports
+      id: report-check
+      run: |
+        # Check if data directory has new IR compliance reports
+        HAS_REPORTS=false
+        HAS_NOTIFICATIONS=false
+        
+        if [ -d "data" ] && ls data/ir_compliance_*.json 1> /dev/null 2>&1; then
+          HAS_REPORTS=true
+          echo "📊 IR compliance reports generated"
+          ls -la data/ir_compliance_*.json
+        fi
+        
+        if [ -d "notifications" ] && ls notifications/ir_notification_*.txt 1> /dev/null 2>&1; then
+          HAS_NOTIFICATIONS=true
+          echo "📄 IR notification files generated"
+          ls -la notifications/ir_notification_*.txt
+        fi
+        
+        # Only commit if FILE_NOTIFICATIONS_COMMIT is not false
+        SHOULD_COMMIT=${FILE_NOTIFICATIONS_COMMIT:-true}
+        
+        if [ "$HAS_REPORTS" = "true" ] || ([ "$HAS_NOTIFICATIONS" = "true" ] && [ "$SHOULD_COMMIT" = "true" ]); then
+          echo "reports=true" >> $GITHUB_OUTPUT
+          echo "📋 Files ready for commit"
+        else
+          echo "reports=false" >> $GITHUB_OUTPUT
+          echo "📂 No files to commit"
+        fi
+    
+    - name: Commit and push reports
+      if: steps.report-check.outputs.reports == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Add compliance reports (always commit these)
+        if [ -d "data" ] && ls data/ir_compliance_*.json 1> /dev/null 2>&1; then
+          git add data/ir_compliance_*.json
+        fi
+        
+        # Add notification files only if enabled
+        SHOULD_COMMIT=${FILE_NOTIFICATIONS_COMMIT:-true}
+        if [ "$SHOULD_COMMIT" = "true" ] && [ -d "notifications" ] && ls notifications/ir_notification_*.txt 1> /dev/null 2>&1; then
+          git add notifications/ir_notification_*.txt
+        fi
+        
+        git commit -m "📋 Update IR compliance reports - $(date '+%Y-%m-%d %H:%M')" || echo "No changes to commit"
+        git push || echo "No changes to push"
+    
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## Fantasy Football IR Compliance Check" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ job.status }}" = "success" ]; then
+          echo "✅ **IR compliance check completed successfully**" >> $GITHUB_STEP_SUMMARY
+          echo "- Yahoo Fantasy API connection successful ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- IR slot compliance verified for all teams" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.report-check.outputs.reports }}" = "true" ]; then
+            echo "- Compliance reports saved to data directory" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Check notification configuration
+          if [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
+            echo "- Slack notifications configured ✅" >> $GITHUB_STEP_SUMMARY
+          elif [ -n "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "- Discord notifications configured ✅" >> $GITHUB_STEP_SUMMARY
+          elif [ -n "${SENDGRID_API_KEY:-}" ]; then
+            echo "- SendGrid notifications configured ✅" >> $GITHUB_STEP_SUMMARY
+          elif [ -n "${SENDER_EMAIL:-}" ] && [ -n "${COMMISSIONER_EMAIL:-}" ]; then
+            echo "- Email notifications configured ⚠️ (consider using webhooks)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- File notifications only (consider configuring webhooks) ⚠️" >> $GITHUB_STEP_SUMMARY
+          fi
+        else
+          echo "❌ **IR compliance check failed**" >> $GITHUB_STEP_SUMMARY
+          echo "- Please check the logs for error details" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Next scheduled check:** Daily at 9 AM EST" >> $GITHUB_STEP_SUMMARY
+        echo "**Status:** Monitoring IR slot compliance 🏥" >> $GITHUB_STEP_SUMMARY

@@ -280,6 +280,122 @@ class YahooFantasyClient:
         except Exception as e:
             logger.error(f"Failed to get current week: {e}")
             return 1
+    
+    def get_team_roster(self, team_id: str, week: Optional[int] = None) -> Dict[str, Any]:
+        """Get team roster with player information including IR slot
+        
+        Args:
+            team_id: Yahoo team ID
+            week: Week number (defaults to current week)
+            
+        Returns:
+            Dictionary containing roster data with players and their positions
+        """
+        try:
+            if week is None:
+                week = self.get_current_week()
+            
+            # Get team roster for specific week
+            roster = self.yahoo_query.get_team_roster_by_week(team_id, week)
+            
+            roster_data = {
+                'team_id': team_id,
+                'week': week,
+                'players': [],
+                'ir_players': []
+            }
+            
+            for player in roster:
+                player_info = {
+                    'player_id': player.player_id,
+                    'player_key': player.player_key,
+                    'name': player.name.full if hasattr(player.name, 'full') else str(player.name),
+                    'position': getattr(player, 'primary_position', 'Unknown'),
+                    'team': getattr(player, 'editorial_team_abbr', 'Unknown'),
+                    'status': getattr(player, 'status', 'Unknown'),
+                    'injury_note': getattr(player, 'injury_note', ''),
+                    'selected_position': None,
+                    'is_ir_slot': False
+                }
+                
+                # Get selected position from roster positions
+                if hasattr(player, 'selected_position'):
+                    if hasattr(player.selected_position, 'position'):
+                        player_info['selected_position'] = player.selected_position.position
+                        # Check if player is in IR slot
+                        if player.selected_position.position in ['IR', 'IR+']:
+                            player_info['is_ir_slot'] = True
+                            roster_data['ir_players'].append(player_info)
+                
+                roster_data['players'].append(player_info)
+            
+            return roster_data
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch roster for team {team_id}, week {week}: {e}")
+            raise
+    
+    def get_all_team_rosters(self, week: Optional[int] = None) -> List[Dict[str, Any]]:
+        """Get rosters for all teams in the league
+        
+        Args:
+            week: Week number (defaults to current week)
+            
+        Returns:
+            List of roster dictionaries for all teams
+        """
+        try:
+            teams = self.get_teams()
+            rosters = []
+            
+            for team in teams:
+                try:
+                    roster = self.get_team_roster(team['team_id'], week)
+                    roster['team_name'] = team['name']
+                    roster['manager'] = team['manager']
+                    rosters.append(roster)
+                except Exception as e:
+                    logger.warning(f"Failed to get roster for team {team['name']}: {e}")
+                    continue
+            
+            return rosters
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch all team rosters: {e}")
+            raise
+    
+    def get_player_details(self, player_key: str) -> Dict[str, Any]:
+        """Get detailed player information including current status
+        
+        Args:
+            player_key: Yahoo player key
+            
+        Returns:
+            Dictionary with detailed player information
+        """
+        try:
+            player = self.yahoo_query.get_player_details_by_key(player_key)
+            
+            player_details = {
+                'player_key': player_key,
+                'player_id': getattr(player, 'player_id', ''),
+                'name': player.name.full if hasattr(player.name, 'full') else str(player.name),
+                'position': getattr(player, 'primary_position', 'Unknown'),
+                'team': getattr(player, 'editorial_team_abbr', 'Unknown'),
+                'status': getattr(player, 'status', 'Unknown'),
+                'injury_note': getattr(player, 'injury_note', ''),
+                'is_ir_eligible': False
+            }
+            
+            # Determine IR eligibility based on status
+            ir_eligible_statuses = ['IR', 'O', 'PUP', 'NFI', 'SUSP', 'NA']
+            player_details['is_ir_eligible'] = player_details['status'] in ir_eligible_statuses
+            
+            return player_details
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch player details for {player_key}: {e}")
+            raise
 
 
 if __name__ == "__main__":
