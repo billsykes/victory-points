@@ -129,7 +129,7 @@ class GitHubIssueNotifier:
             return False
         
         # Only create issues for violations (configurable)
-        create_for_all = os.getenv('GITHUB_ISSUES_FOR_ALL_REPORTS', 'false').lower() == 'true'
+        create_for_all = os.getenv('IR_ISSUES_FOR_ALL_REPORTS', 'false').lower() == 'true'
         
         if "Violations" not in subject and not create_for_all:
             logger.info("No violations found, skipping GitHub issue creation")
@@ -151,7 +151,7 @@ class GitHubIssueNotifier:
             }
             
             # Add assignee if configured
-            assignee = os.getenv('GITHUB_ISSUE_ASSIGNEE')
+            assignee = os.getenv('IR_ISSUE_ASSIGNEE')
             if assignee:
                 issue_data['assignee'] = assignee
             

@@ -22,13 +22,13 @@ Add these **Repository Secrets:**
 Secret Name: FILE_NOTIFICATIONS_COMMIT
 Secret Value: false
 
-Secret Name: GITHUB_ISSUES_FOR_ALL_REPORTS
+Secret Name: IR_ISSUES_FOR_ALL_REPORTS
 Secret Value: false
 ```
 
 **Optional (recommended):**
 ```
-Secret Name: GITHUB_ISSUE_ASSIGNEE
+Secret Name: IR_ISSUE_ASSIGNEE
 Secret Value: your-github-username
 ```
 
@@ -114,12 +114,12 @@ Players with these statuses may be placed in IR slots:
 ### **Basic Setup (Recommended):**
 ```bash
 FILE_NOTIFICATIONS_COMMIT=false           # No daily commits/emails
-GITHUB_ISSUES_FOR_ALL_REPORTS=false       # Only violations create issues
+IR_ISSUES_FOR_ALL_REPORTS=false           # Only violations create issues
 ```
 
 ### **Advanced Options:**
 ```bash
-GITHUB_ISSUE_ASSIGNEE=your-github-username  # Auto-assign issues to you
+IR_ISSUE_ASSIGNEE=your-github-username     # Auto-assign issues to you
 IR_ELIGIBLE_STATUSES=IR,O,PUP,NFI          # Custom eligible statuses
 ```
 
@@ -127,7 +127,7 @@ IR_ELIGIBLE_STATUSES=IR,O,PUP,NFI          # Custom eligible statuses
 
 **Weekly Summary Issues:**
 ```bash
-GITHUB_ISSUES_FOR_ALL_REPORTS=true  # Create issues even without violations
+IR_ISSUES_FOR_ALL_REPORTS=true  # Create issues even without violations
 ```
 
 **Silent Monitoring:**
@@ -221,8 +221,8 @@ Here's exactly what to add in **Settings** → **Secrets and variables** → **A
 | Secret Name | Secret Value | Purpose |
 |-------------|--------------|---------|
 | `FILE_NOTIFICATIONS_COMMIT` | `false` | Prevent daily commit emails |
-| `GITHUB_ISSUES_FOR_ALL_REPORTS` | `false` | Only violations create issues |
-| `GITHUB_ISSUE_ASSIGNEE` | `your-username` | Auto-assign violations to you |
+| `IR_ISSUES_FOR_ALL_REPORTS` | `false` | Only violations create issues |
+| `IR_ISSUE_ASSIGNEE` | `your-username` | Auto-assign violations to you |
 
 **Optional league customization:**
 | Secret Name | Example Value | Purpose |

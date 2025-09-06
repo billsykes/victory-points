@@ -137,8 +137,8 @@ jobs:
         ALWAYS_SEND_IR_REPORT: ${{ secrets.ALWAYS_SEND_IR_REPORT }}
         # GitHub Issues configuration
         FILE_NOTIFICATIONS_COMMIT: ${{ secrets.FILE_NOTIFICATIONS_COMMIT }}
-        GITHUB_ISSUES_FOR_ALL_REPORTS: ${{ secrets.GITHUB_ISSUES_FOR_ALL_REPORTS }}
-        GITHUB_ISSUE_ASSIGNEE: ${{ secrets.GITHUB_ISSUE_ASSIGNEE }}
+        IR_ISSUES_FOR_ALL_REPORTS: ${{ secrets.IR_ISSUES_FOR_ALL_REPORTS }}
+        IR_ISSUE_ASSIGNEE: ${{ secrets.IR_ISSUE_ASSIGNEE }}
         PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/scripts
         CI: true
       run: |
