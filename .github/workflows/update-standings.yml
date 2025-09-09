@@ -247,15 +247,17 @@ jobs:
         git commit -m "🏈 Update fantasy football standings - $(date '+%Y-%m-%d %H:%M')"
         git push
     
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload to GitHub Pages
+      uses: actions/upload-pages-artifact@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./website
-        publish_branch: gh-pages
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        commit_message: '🏈 Update standings website - ${{ github.sha }}'
+        path: ./website
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
     
     - name: Create summary
       if: always()
