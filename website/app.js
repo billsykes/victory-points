@@ -29,7 +29,7 @@ class VictoryPointsApp {
     
     async loadConfig() {
         try {
-            const response = await fetch('../data/website_config.json');
+            const response = await fetch('./data/website_config.json');
             if (response.ok) {
                 this.config = await response.json();
                 console.log('Loaded website configuration:', this.config);
@@ -97,7 +97,7 @@ class VictoryPointsApp {
     
     async loadSeasonStandings() {
         try {
-            const response = await fetch('../data/season_standings.json');
+            const response = await fetch('./data/season_standings.json');
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
@@ -121,7 +121,7 @@ class VictoryPointsApp {
         // Try weeks 1-18 (typical NFL season length)
         for (let week = 1; week <= 18; week++) {
             try {
-                const response = await fetch(`../data/week_${week.toString().padStart(2, '0')}_results.json`);
+                const response = await fetch(`./data/week_${week.toString().padStart(2, '0')}_results.json`);
                 if (response.ok) {
                     const weekData = await response.json();
                     this.weekData[week] = weekData;

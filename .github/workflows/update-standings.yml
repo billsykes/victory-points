@@ -197,6 +197,13 @@ jobs:
         # Debug: Show git diff for data files
         echo "🔍 Debug - Git diff for data files:"
         git diff data/ || echo "No git diff output"
+        
+        # Copy data files to website directory for GitHub Pages deployment
+        echo "📁 Copying data files to website directory..."
+        mkdir -p website/data
+        cp data/*.json website/data/
+        echo "✅ Data files copied to website/data/"
+        ls -la website/data/ || echo "Failed to copy data files"
     
     - name: Check for changes
       id: git-check
