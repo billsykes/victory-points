@@ -170,13 +170,21 @@ jobs:
         # Check if data directory has any files
         if [ -d "data" ] && [ "$(ls -A data 2>/dev/null)" ]; then
           echo "📁 Data directory contains files, checking for changes..."
+          
+          # Check for untracked files and modifications
           git add data/
-          if git diff --staged --quiet; then
+          
+          # Check both staged changes AND untracked files
+          if git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard data/)" ]; then
             echo "changes=false" >> $GITHUB_OUTPUT
             echo "📊 Data directory exists but no changes detected"
           else
             echo "changes=true" >> $GITHUB_OUTPUT
-            echo "✅ New data files detected"
+            echo "✅ New or modified data files detected"
+            echo "Staged changes:"
+            git diff --cached --name-status || echo "No staged changes"
+            echo "Untracked files:"
+            git ls-files --others --exclude-standard data/ || echo "No untracked files"
           fi
         else
           echo "📂 Data directory is empty (likely no games/data available yet)"
