@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiebreaker Policy - Victory Points</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Tiebreaker Policy</h1>
+            <p class="subtitle">Victory Points Fantasy Football League</p>
+            <nav class="breadcrumb">
+                <a href="index.html">← Back to Standings</a>
+            </nav>
+        </header>
+
+        <div class="policy-content">
+            <section class="policy-section">
+                <h2>🏆 Season Standings Tiebreakers</h2>
+                <p>When teams are tied in total Victory Points, the following tiebreaker hierarchy is used (following Yahoo Fantasy Football standards):</p>
+                
+                <div class="tiebreaker-list">
+                    <div class="tiebreaker-item">
+                        <div class="tiebreaker-number">1</div>
+                        <div class="tiebreaker-content">
+                            <strong>Total Victory Points</strong>
+                            <p>Primary ranking criteria. Each team can earn 0-2 Victory Points per week (1 for head-to-head win + 1 for performance win).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tiebreaker-item">
+                        <div class="tiebreaker-number">2</div>
+                        <div class="tiebreaker-content">
+                            <strong>Total Fantasy Points</strong>
+                            <p>Sum of all weekly fantasy points scored throughout the season.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tiebreaker-item">
+                        <div class="tiebreaker-number">3</div>
+                        <div class="tiebreaker-content">
+                            <strong>Most Recent Week Score</strong>
+                            <p>Fantasy points scored in the most recent completed week.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tiebreaker-item">
+                        <div class="tiebreaker-number">4</div>
+                        <div class="tiebreaker-content">
+                            <strong>Second Most Recent Week Score</strong>
+                            <p>Fantasy points scored in the second most recent completed week.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tiebreaker-item">
+                        <div class="tiebreaker-number">5</div>
+                        <div class="tiebreaker-content">
+                            <strong>Continue Back Through All Weeks</strong>
+                            <p>Third most recent week, fourth most recent week, and so on through all completed weeks.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="policy-section">
+                <h2>⚖️ Performance Win Tie Handling</h2>
+                <p>When teams tie at the boundary between top half and bottom half, victory points are split proportionally:</p>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <h3>Example 1: 2-Team Tie</h3>
+                        <p><strong>Scenario:</strong> 12-team league, teams tied at 6th/7th place</p>
+                        <div class="calculation">
+                            <p>• 1 team would be in top half (1.0 win)</p>
+                            <p>• 1 team would be in bottom half (0.0 win)</p>
+                            <p>• <strong>Result:</strong> Each team gets 0.5 victory points</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h3>Example 2: 3-Team Tie (Upper Boundary)</h3>
+                        <p><strong>Scenario:</strong> 12-team league, teams tied at 5th/6th/7th place</p>
+                        <div class="calculation">
+                            <p>• 2 teams would be in top half (2.0 wins)</p>
+                            <p>• 1 team would be in bottom half (0.0 wins)</p>
+                            <p>• <strong>Result:</strong> Each team gets 0.67 victory points</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h3>Example 3: 3-Team Tie (Lower Boundary)</h3>
+                        <p><strong>Scenario:</strong> 12-team league, teams tied at 6th/7th/8th place</p>
+                        <div class="calculation">
+                            <p>• 1 team would be in top half (1.0 win)</p>
+                            <p>• 2 teams would be in bottom half (0.0 wins)</p>
+                            <p>• <strong>Result:</strong> Each team gets 0.33 victory points</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <h4>📊 Split Formula</h4>
+                    <p><strong>Victory Points per Team = Total Wins Available ÷ Number of Tied Teams</strong></p>
+                    <p>Where Total Wins Available = (Teams in Top Half × 1.0) + (Teams in Bottom Half × 0.0)</p>
+                </div>
+            </section>
+
+            <section class="policy-section">
+                <h2>📋 Victory Points Scoring Overview</h2>
+                <div class="scoring-recap">
+                    <div class="scoring-item-detailed">
+                        <div class="scoring-icon">⚔️</div>
+                        <div>
+                            <strong>Head-to-Head Result</strong>
+                            <p>Win = 1.0 point, Loss = 0.0 points, Tie = 0.5 points each</p>
+                        </div>
+                    </div>
+                    <div class="scoring-item-detailed">
+                        <div class="scoring-icon">📊</div>
+                        <div>
+                            <strong>Performance Result</strong>
+                            <p>Top half of league = 1.0 point, Bottom half = 0.0 points</p>
+                            <p>Ties at boundary split points proportionally</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="max-points">
+                    <strong>Maximum per week:</strong> 2.0 Victory Points (H2H Win + Performance Win)<br>
+                    <strong>Minimum per week:</strong> 0.0 Victory Points (H2H Loss + Performance Loss)
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Victory Points System | <a href="index.html">Return to Standings</a></p>
+    </footer>
+</body>
+</html>
