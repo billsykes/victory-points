@@ -177,7 +177,7 @@ class YahooFantasyClient:
             league = self.yahoo_query.get_league_info()
             return {
                 'league_id': league.league_id,
-                'name': league.name,
+                'name': league.name.decode('utf-8') if isinstance(league.name, bytes) else str(league.name),
                 'season': league.season,
                 'num_teams': league.num_teams,
                 'current_week': league.current_week,
@@ -227,20 +227,37 @@ class YahooFantasyClient:
                 if hasattr(matchup, 'teams') and len(matchup.teams) == 2:
                     team1, team2 = matchup.teams[0], matchup.teams[1]
                     
+                    # Extract points from TeamPoints objects
+                    team1_points = 0
+                    if hasattr(team1, 'team_points') and team1.team_points:
+                        if hasattr(team1.team_points, 'total'):
+                            team1_points = float(team1.team_points.total)
+                        else:
+                            # Fallback: try to get total as attribute or use the object directly
+                            team1_points = float(getattr(team1.team_points, 'total', team1.team_points))
+                    
+                    team2_points = 0
+                    if hasattr(team2, 'team_points') and team2.team_points:
+                        if hasattr(team2.team_points, 'total'):
+                            team2_points = float(team2.team_points.total)
+                        else:
+                            # Fallback: try to get total as attribute or use the object directly
+                            team2_points = float(getattr(team2.team_points, 'total', team2.team_points))
+
                     matchup_info = {
                         'week': week,
                         'matchup_id': getattr(matchup, 'matchup_id', None),
                         'team1': {
                             'team_id': team1.team_id,
                             'team_key': team1.team_key,
-                            'name': team1.name,
-                            'points': getattr(team1, 'team_points', {}).get('total', 0)
+                            'name': team1.name.decode('utf-8') if isinstance(team1.name, bytes) else str(team1.name),
+                            'points': team1_points
                         },
                         'team2': {
                             'team_id': team2.team_id,
                             'team_key': team2.team_key,
-                            'name': team2.name,
-                            'points': getattr(team2, 'team_points', {}).get('total', 0)
+                            'name': team2.name.decode('utf-8') if isinstance(team2.name, bytes) else str(team2.name),
+                            'points': team2_points
                         }
                     }
                     matchup_list.append(matchup_info)
