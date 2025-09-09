@@ -84,8 +84,10 @@ def generate_website_config(output_dir: str = "data") -> str:
     
     # Replace timestamp placeholder and add run timestamp for git change detection
     from datetime import datetime
-    config["generated_at"] = datetime.now().isoformat()
-    config["run_timestamp"] = datetime.now().timestamp()  # Force uniqueness for git
+    now = datetime.now()
+    config["generated_at"] = now.isoformat()
+    config["run_timestamp"] = int(now.timestamp() * 1000000)  # Microsecond precision for uniqueness
+    config["run_uuid"] = str(hash(now.isoformat() + str(now.microsecond)))  # Additional uniqueness
     
     # Ensure output directory exists
     output_path = Path(output_dir)

@@ -50,10 +50,12 @@ class ScoringCalculator:
         # Combine results
         combined_results = self._combine_results(h2h_results, performance_results, week_scores)
         
+        now = datetime.now()
         week_data = {
             'week': week,
-            'date_calculated': datetime.now().isoformat(),
-            'run_timestamp': datetime.now().timestamp(),  # Force uniqueness for git
+            'date_calculated': now.isoformat(),
+            'run_timestamp': int(now.timestamp() * 1000000),  # Microsecond precision for uniqueness
+            'run_uuid': str(hash(now.isoformat() + str(now.microsecond))),  # Additional uniqueness
             'team_results': combined_results,
             'week_summary': self._generate_week_summary(combined_results, week_scores)
         }
@@ -324,9 +326,11 @@ class ScoringCalculator:
         for i, team in enumerate(standings):
             team['rank'] = i + 1
         
+        now = datetime.now()
         season_standings = {
-            'last_updated': datetime.now().isoformat(),
-            'run_timestamp': datetime.now().timestamp(),  # Force uniqueness for git
+            'last_updated': now.isoformat(),
+            'run_timestamp': int(now.timestamp() * 1000000),  # Microsecond precision for uniqueness
+            'run_uuid': str(hash(now.isoformat() + str(now.microsecond))),  # Additional uniqueness
             'weeks_included': len(weeks_data_sorted),
             'standings': standings,
             'season_summary': self._generate_season_summary(standings, weeks_data_sorted)

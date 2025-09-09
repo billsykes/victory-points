@@ -159,6 +159,10 @@ jobs:
         echo "🔍 Debug - Data directory before script execution:"
         ls -la data/ 2>/dev/null || echo "No data directory"
         
+        # Debug: Show git status before script
+        echo "🔍 Debug - Git status before script execution:"
+        git status --porcelain data/ || echo "No git status output"
+        
         # Run the script with proper path
         echo "🚀 Running fetch_data.py script..."
         if [ "${{ github.event.inputs.all_weeks }}" = "true" ]; then
@@ -176,11 +180,19 @@ jobs:
         echo "🔍 Debug - Data directory after script execution:"
         ls -la data/ 2>/dev/null || echo "No data directory"
         
+        # Debug: Show git status after script  
+        echo "🔍 Debug - Git status after script execution:"
+        git status --porcelain data/ || echo "No git status output"
+        
         # Show any recent changes to data files
         echo "🔍 Debug - Recent modifications to data files:"
         find data/ -name "*.json" -mmin -5 2>/dev/null | while read file; do
           echo "  Recently modified: $file ($(stat -c %y "$file" 2>/dev/null || stat -f %Sm "$file" 2>/dev/null || echo "unknown time"))"
         done
+        
+        # Debug: Show git diff for data files
+        echo "🔍 Debug - Git diff for data files:"
+        git diff data/ || echo "No git diff output"
     
     - name: Check for changes
       id: git-check
