@@ -171,20 +171,33 @@ jobs:
         if [ -d "data" ] && [ "$(ls -A data 2>/dev/null)" ]; then
           echo "📁 Data directory contains files, checking for changes..."
           
+          # Debug: Show git status before processing
+          echo "Debug - Git status before processing:"
+          git status --porcelain data/ || echo "No git status output"
+          
           # Check for untracked files and modifications
           git add data/
           
-          # Check both staged changes AND untracked files
-          if git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard data/)" ]; then
+          # Debug: Show what was staged
+          echo "Debug - Staged changes:"
+          git diff --cached --name-status data/ || echo "No staged changes"
+          
+          echo "Debug - Untracked files in data/:"
+          git ls-files --others --exclude-standard data/ || echo "No untracked files"
+          
+          # Check both staged changes AND untracked files (improved logic)
+          STAGED_QUIET=$(git diff --cached --quiet data/ && echo "true" || echo "false")
+          UNTRACKED_FILES=$(git ls-files --others --exclude-standard data/)
+          
+          echo "Debug - Staged quiet check: $STAGED_QUIET"
+          echo "Debug - Untracked files result: '$UNTRACKED_FILES'"
+          
+          if [ "$STAGED_QUIET" = "true" ] && [ -z "$UNTRACKED_FILES" ]; then
             echo "changes=false" >> $GITHUB_OUTPUT
-            echo "📊 Data directory exists but no changes detected"
+            echo "📊 Data directory exists but no changes detected (using improved detection logic v2)"
           else
             echo "changes=true" >> $GITHUB_OUTPUT
-            echo "✅ New or modified data files detected"
-            echo "Staged changes:"
-            git diff --cached --name-status || echo "No staged changes"
-            echo "Untracked files:"
-            git ls-files --others --exclude-standard data/ || echo "No untracked files"
+            echo "✅ New or modified data files detected (using improved detection logic v2)"
           fi
         else
           echo "📂 Data directory is empty (likely no games/data available yet)"
