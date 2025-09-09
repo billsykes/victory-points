@@ -53,6 +53,7 @@ class ScoringCalculator:
         week_data = {
             'week': week,
             'date_calculated': datetime.now().isoformat(),
+            'run_timestamp': datetime.now().timestamp(),  # Force uniqueness for git
             'team_results': combined_results,
             'week_summary': self._generate_week_summary(combined_results, week_scores)
         }
@@ -325,6 +326,7 @@ class ScoringCalculator:
         
         season_standings = {
             'last_updated': datetime.now().isoformat(),
+            'run_timestamp': datetime.now().timestamp(),  # Force uniqueness for git
             'weeks_included': len(weeks_data_sorted),
             'standings': standings,
             'season_summary': self._generate_season_summary(standings, weeks_data_sorted)

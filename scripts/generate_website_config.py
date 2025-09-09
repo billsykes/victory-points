@@ -82,9 +82,10 @@ def generate_website_config(output_dir: str = "data") -> str:
         "generated_at": "{{ generated_timestamp }}"
     }
     
-    # Replace timestamp placeholder
+    # Replace timestamp placeholder and add run timestamp for git change detection
     from datetime import datetime
     config["generated_at"] = datetime.now().isoformat()
+    config["run_timestamp"] = datetime.now().timestamp()  # Force uniqueness for git
     
     # Ensure output directory exists
     output_path = Path(output_dir)
