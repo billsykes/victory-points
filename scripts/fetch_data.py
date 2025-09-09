@@ -53,6 +53,11 @@ def fetch_and_calculate_week(client: YahooFantasyClient,
         # Calculate results
         week_results = calculator.calculate_week_results(matchups, week_scores)
         
+        # Check if week data was valid
+        if week_results is None:
+            logger.warning(f"Week {week} skipped due to invalid data")
+            return False
+        
         # Save week data
         calculator.save_week_data(week_results)
         

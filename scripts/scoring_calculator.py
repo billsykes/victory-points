@@ -36,6 +36,11 @@ class ScoringCalculator:
         """
         week = week_scores[0]['week'] if week_scores else 1
         
+        # Check if this week has valid data (not all zero scores)
+        if self._is_invalid_week_data(week_scores):
+            logger.warning(f"Week {week} appears to have invalid data (all zero scores) - skipping calculation")
+            return None
+        
         # Calculate head-to-head results
         h2h_results = self._calculate_h2h_results(matchups)
         
@@ -53,6 +58,22 @@ class ScoringCalculator:
         }
         
         return week_data
+    
+    def _is_invalid_week_data(self, week_scores: List[Dict]) -> bool:
+        """Check if week data is invalid (all zero scores)
+        
+        Args:
+            week_scores: List of team scores for the week
+            
+        Returns:
+            True if week data appears invalid, False otherwise
+        """
+        if not week_scores:
+            return True
+        
+        # Check if all scores are zero
+        all_zero = all(team['score'] == 0.0 for team in week_scores)
+        return all_zero
     
     def _calculate_h2h_results(self, matchups: List[Dict]) -> Dict[str, str]:
         """Calculate head-to-head win/loss results
@@ -399,7 +420,7 @@ class ScoringCalculator:
         """Load all existing week data files
         
         Returns:
-            List of week data dictionaries, sorted by week
+            List of week data dictionaries, sorted by week, excluding invalid weeks
         """
         weeks_data = []
         
@@ -407,7 +428,17 @@ class ScoringCalculator:
             try:
                 with open(json_file, 'r') as f:
                     week_data = json.load(f)
-                    weeks_data.append(week_data)
+                    
+                    # Check if this week has valid data by examining scores
+                    team_results = week_data.get('team_results', [])
+                    if team_results:
+                        # Create a simplified score list to check validity
+                        week_scores = [{'score': team['week_score']} for team in team_results]
+                        if not self._is_invalid_week_data(week_scores):
+                            weeks_data.append(week_data)
+                        else:
+                            logger.info(f"Skipping invalid week data from {json_file}")
+                    
             except Exception as e:
                 logger.error(f"Failed to load {json_file}: {e}")
         
