@@ -155,14 +155,32 @@ jobs:
           echo "YAHOO_TOKEN_TYPE: not set"
         fi
         
+        # Debug: Show data directory before running script
+        echo "🔍 Debug - Data directory before script execution:"
+        ls -la data/ 2>/dev/null || echo "No data directory"
+        
         # Run the script with proper path
+        echo "🚀 Running fetch_data.py script..."
         if [ "${{ github.event.inputs.all_weeks }}" = "true" ]; then
+          echo "📅 Mode: Processing all weeks"
           cd scripts && python fetch_data.py --all-weeks
         elif [ -n "${{ github.event.inputs.week }}" ]; then
+          echo "📅 Mode: Processing week ${{ github.event.inputs.week }}"
           cd scripts && python fetch_data.py --week ${{ github.event.inputs.week }}
         else
+          echo "📅 Mode: Processing current/most recent valid week"
           cd scripts && python fetch_data.py
         fi
+        
+        # Debug: Show data directory after running script
+        echo "🔍 Debug - Data directory after script execution:"
+        ls -la data/ 2>/dev/null || echo "No data directory"
+        
+        # Show any recent changes to data files
+        echo "🔍 Debug - Recent modifications to data files:"
+        find data/ -name "*.json" -mmin -5 2>/dev/null | while read file; do
+          echo "  Recently modified: $file ($(stat -c %y "$file" 2>/dev/null || stat -f %Sm "$file" 2>/dev/null || echo "unknown time"))"
+        done
     
     - name: Check for changes
       id: git-check
