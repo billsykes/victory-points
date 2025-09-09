@@ -21,9 +21,6 @@ on:
 jobs:
   update-standings:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       contents: write  # Allow pushing changes to repository
       pages: write     # Allow deploying to GitHub Pages
@@ -257,17 +254,15 @@ jobs:
         git commit -m "🏈 Update fantasy football standings - $(date '+%Y-%m-%d %H:%M')"
         git push
     
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-
-    - name: Upload to GitHub Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./website
-
     - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./website
+        publish_branch: gh-pages
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: '🏈 Update standings website - ${{ github.sha }}'
     
     - name: Create summary
       if: always()
