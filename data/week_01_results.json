@@ -1,8 +1,8 @@
 {
   "week": 1,
-  "date_calculated": "2025-09-09T19:12:05.771439",
-  "run_timestamp": 1757459525771439,
-  "run_uuid": "540792344954983325",
+  "date_calculated": "2025-09-09T23:18:10.701533",
+  "run_timestamp": 1757459890701533,
+  "run_uuid": "2719571974604680447",
   "team_results": [
     {
       "team_id": 8,
@@ -202,7 +202,7 @@
     "total_teams": 12,
     "highest_score": 162.3,
     "lowest_score": 88.15,
-    "average_score": 120.54166666666667,
+    "average_score": 120.54166666666669,
     "perfect_weeks": 4,
     "winless_weeks": 4
   }
