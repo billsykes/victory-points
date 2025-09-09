@@ -24,6 +24,33 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def find_most_recent_valid_week(client: YahooFantasyClient, 
+                               calculator: ScoringCalculator, 
+                               max_week: int) -> int:
+    """Find the most recent week with valid data (non-zero scores)
+    
+    Args:
+        client: Yahoo Fantasy client
+        calculator: Scoring calculator  
+        max_week: Maximum week to check
+        
+    Returns:
+        Most recent valid week number, or 1 if none found
+    """
+    for week in range(max_week, 0, -1):  # Count backwards from max_week
+        try:
+            week_scores = client.get_week_scores(week)
+            if week_scores and not calculator._is_invalid_week_data(week_scores):
+                logger.info(f"Found most recent valid week: {week}")
+                return week
+        except Exception as e:
+            logger.debug(f"Failed to check week {week}: {e}")
+            continue
+    
+    logger.warning("No valid weeks found, defaulting to week 1")
+    return 1
+
+
 def fetch_and_calculate_week(client: YahooFantasyClient, 
                            calculator: ScoringCalculator, 
                            week: int) -> bool:
@@ -181,16 +208,23 @@ def main():
         success_count = 0
         
         if args.all_weeks:
-            # Process all weeks from start to current
+            # Process all weeks from start to most recent valid week
             start_week = league_info['start_week']
-            current_week = league_info['current_week']
+            api_current_week = league_info['current_week']
+            most_recent_valid = find_most_recent_valid_week(client, calculator, api_current_week)
             
-            for week in range(start_week, current_week + 1):
+            logger.info(f"Processing weeks {start_week} to {most_recent_valid}")
+            
+            for week in range(start_week, most_recent_valid + 1):
                 if fetch_and_calculate_week(client, calculator, week):
                     success_count += 1
         else:
-            # Process specific week or current week
-            week_to_process = args.week if args.week else league_info['current_week']
+            # Process specific week or most recent valid week
+            if args.week:
+                week_to_process = args.week
+            else:
+                # Find the most recent week with valid data instead of trusting API's "current week"
+                week_to_process = find_most_recent_valid_week(client, calculator, league_info['current_week'])
             
             if fetch_and_calculate_week(client, calculator, week_to_process):
                 success_count += 1
