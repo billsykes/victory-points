@@ -21,6 +21,9 @@ on:
 jobs:
   update-standings:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       contents: write  # Allow pushing changes to repository
       pages: write     # Allow deploying to GitHub Pages
