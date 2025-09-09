@@ -21,6 +21,10 @@ on:
 jobs:
   update-standings:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allow pushing changes to repository
+      pages: write     # Allow deploying to GitHub Pages
+      id-token: write  # Allow OIDC token for Pages deployment
     
     steps:
     - name: Checkout repository
@@ -244,7 +248,6 @@ jobs:
         git push
     
     - name: Deploy to GitHub Pages
-      if: steps.git-check.outputs.changes == 'true'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
