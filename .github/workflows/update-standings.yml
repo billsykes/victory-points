@@ -163,17 +163,17 @@ jobs:
         echo "🔍 Debug - Git status before script execution:"
         git status --porcelain data/ || echo "No git status output"
         
-        # Run the script with proper path
+        # Run the script with proper path and output directory
         echo "🚀 Running fetch_data.py script..."
         if [ "${{ github.event.inputs.all_weeks }}" = "true" ]; then
           echo "📅 Mode: Processing all weeks"
-          cd scripts && python fetch_data.py --all-weeks
+          python scripts/fetch_data.py --all-weeks --output-dir data
         elif [ -n "${{ github.event.inputs.week }}" ]; then
           echo "📅 Mode: Processing week ${{ github.event.inputs.week }}"
-          cd scripts && python fetch_data.py --week ${{ github.event.inputs.week }}
+          python scripts/fetch_data.py --week ${{ github.event.inputs.week }} --output-dir data
         else
           echo "📅 Mode: Processing current/most recent valid week"
-          cd scripts && python fetch_data.py
+          python scripts/fetch_data.py --output-dir data
         fi
         
         # Debug: Show data directory after running script
