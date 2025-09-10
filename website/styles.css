@@ -204,8 +204,8 @@ body {
     text-align: left;
     font-weight: 600;
     font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
 }
 
 .standings-table th:first-child {
@@ -671,6 +671,10 @@ body {
         padding: 0.75rem 0.5rem;
     }
     
+    .standings-table th {
+        font-size: 0.8rem;
+    }
+    
     .scoring-grid {
         grid-template-columns: 1fr;
     }
@@ -701,9 +705,31 @@ body {
         font-size: 1rem;
     }
     
-    .standings-table th,
+    .standings-table {
+        font-size: 0.8rem;
+    }
+    
+    .standings-table th {
+        padding: 0.75rem 0.25rem;
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    
     .standings-table td {
-        padding: 0.5rem 0.25rem;
+        padding: 0.75rem 0.25rem;
+    }
+    
+    /* Make specific columns more readable on mobile */
+    .standings-table th:nth-child(3),
+    .standings-table th:nth-child(4),
+    .standings-table th:nth-child(5) {
+        text-align: center;
+    }
+    
+    .standings-table td:nth-child(3),
+    .standings-table td:nth-child(4),
+    .standings-table td:nth-child(5) {
+        text-align: center;
     }
     
     .standings-container,
