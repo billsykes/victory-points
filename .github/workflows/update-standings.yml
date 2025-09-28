@@ -2,8 +2,8 @@ name: Update Fantasy Football Standings
 
 on:
   schedule:
-    # Run every Tuesday at 8 AM EST (after Yahoo processes weekend games)
-    - cron: '0 13 * * 2'
+    # Run every Tuesday at 7 AM EST (after Yahoo processes weekend games)
+    - cron: '0 11 * * 2'
   
   # Allow manual trigger
   workflow_dispatch:
