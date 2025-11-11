@@ -1,23 +1,27 @@
 {
-  "last_updated": "2025-11-04T11:24:32.742325",
-  "run_timestamp": 1762255472742325,
-  "run_uuid": "6564662184515581294",
-  "weeks_included": 9,
+  "last_updated": "2025-11-11T11:24:09.157715",
+  "run_timestamp": 1762860249157715,
+  "run_uuid": "-6330232561062779347",
+  "weeks_included": 10,
   "standings": [
     {
       "team_id": 8,
       "team_name": "Josh Allen Waddles",
       "team_key": "461.l.244820.t.8",
-      "total_h2h_wins": 7,
+      "total_h2h_wins": 8,
       "total_h2h_losses": 2,
       "total_h2h_ties": 0,
-      "total_performance_wins": 5.0,
+      "total_performance_wins": 6.0,
       "total_performance_losses": 4.0,
-      "total_wins": 12.0,
+      "total_wins": 14.0,
       "total_losses": 6.0,
-      "total_points": 1217.3000000000002,
-      "weeks_played": 9,
+      "total_points": 1354.8000000000002,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 137.5
+        },
         {
           "week": 9,
           "score": 121.0
@@ -55,24 +59,28 @@
           "score": 162.3
         }
       ],
-      "average_score": 135.2555555555556,
-      "win_percentage": 0.6666666666666666,
+      "average_score": 135.48000000000002,
+      "win_percentage": 0.7,
       "rank": 1
     },
     {
       "team_id": 9,
       "team_name": "MF #LASTYEAR \ud83c\udfc6",
       "team_key": "461.l.244820.t.9",
-      "total_h2h_wins": 6,
+      "total_h2h_wins": 7,
       "total_h2h_losses": 3,
       "total_h2h_ties": 0,
-      "total_performance_wins": 6.0,
+      "total_performance_wins": 7.0,
       "total_performance_losses": 3.0,
-      "total_wins": 12.0,
+      "total_wins": 14.0,
       "total_losses": 6.0,
-      "total_points": 1203.45,
-      "weeks_played": 9,
+      "total_points": 1353.15,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 149.7
+        },
         {
           "week": 9,
           "score": 151.05
@@ -110,134 +118,28 @@
           "score": 100.9
         }
       ],
-      "average_score": 133.71666666666667,
-      "win_percentage": 0.6666666666666666,
+      "average_score": 135.315,
+      "win_percentage": 0.7,
       "rank": 2
-    },
-    {
-      "team_id": 5,
-      "team_name": "Speed Divas & Demons",
-      "team_key": "461.l.244820.t.5",
-      "total_h2h_wins": 5,
-      "total_h2h_losses": 4,
-      "total_h2h_ties": 0,
-      "total_performance_wins": 6.0,
-      "total_performance_losses": 3.0,
-      "total_wins": 11.0,
-      "total_losses": 7.0,
-      "total_points": 1153.9,
-      "weeks_played": 9,
-      "recent_scores": [
-        {
-          "week": 9,
-          "score": 130.05
-        },
-        {
-          "week": 8,
-          "score": 71.5
-        },
-        {
-          "week": 7,
-          "score": 101.05
-        },
-        {
-          "week": 6,
-          "score": 142.1
-        },
-        {
-          "week": 5,
-          "score": 127.0
-        },
-        {
-          "week": 4,
-          "score": 159.3
-        },
-        {
-          "week": 3,
-          "score": 174.85
-        },
-        {
-          "week": 2,
-          "score": 125.0
-        },
-        {
-          "week": 1,
-          "score": 123.05
-        }
-      ],
-      "average_score": 128.2111111111111,
-      "win_percentage": 0.6111111111111112,
-      "rank": 3
-    },
-    {
-      "team_id": 12,
-      "team_name": "Under New Management",
-      "team_key": "461.l.244820.t.12",
-      "total_h2h_wins": 6,
-      "total_h2h_losses": 3,
-      "total_h2h_ties": 0,
-      "total_performance_wins": 5.0,
-      "total_performance_losses": 4.0,
-      "total_wins": 11.0,
-      "total_losses": 7.0,
-      "total_points": 1144.45,
-      "weeks_played": 9,
-      "recent_scores": [
-        {
-          "week": 9,
-          "score": 122.15
-        },
-        {
-          "week": 8,
-          "score": 73.9
-        },
-        {
-          "week": 7,
-          "score": 124.5
-        },
-        {
-          "week": 6,
-          "score": 145.45
-        },
-        {
-          "week": 5,
-          "score": 145.75
-        },
-        {
-          "week": 4,
-          "score": 149.05
-        },
-        {
-          "week": 3,
-          "score": 142.3
-        },
-        {
-          "week": 2,
-          "score": 105.7
-        },
-        {
-          "week": 1,
-          "score": 135.65
-        }
-      ],
-      "average_score": 127.16111111111111,
-      "win_percentage": 0.6111111111111112,
-      "rank": 4
     },
     {
       "team_id": 7,
       "team_name": "JJDynamite",
       "team_key": "461.l.244820.t.7",
-      "total_h2h_wins": 5,
+      "total_h2h_wins": 6,
       "total_h2h_losses": 4,
       "total_h2h_ties": 0,
-      "total_performance_wins": 5.0,
+      "total_performance_wins": 6.0,
       "total_performance_losses": 4.0,
-      "total_wins": 10.0,
+      "total_wins": 12.0,
       "total_losses": 8.0,
-      "total_points": 1182.5999999999997,
-      "weeks_played": 9,
+      "total_points": 1319.7999999999997,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 137.2
+        },
         {
           "week": 9,
           "score": 122.6
@@ -275,134 +177,146 @@
           "score": 109.5
         }
       ],
-      "average_score": 131.39999999999998,
-      "win_percentage": 0.5555555555555556,
-      "rank": 5
+      "average_score": 131.97999999999996,
+      "win_percentage": 0.6,
+      "rank": 3
     },
     {
-      "team_id": 2,
-      "team_name": "\u260e\ufe0f",
-      "team_key": "461.l.244820.t.2",
-      "total_h2h_wins": 4,
+      "team_id": 5,
+      "team_name": "Speed Divas & Demons",
+      "team_key": "461.l.244820.t.5",
+      "total_h2h_wins": 5,
       "total_h2h_losses": 5,
       "total_h2h_ties": 0,
       "total_performance_wins": 6.0,
-      "total_performance_losses": 3.0,
-      "total_wins": 10.0,
-      "total_losses": 8.0,
-      "total_points": 1147.1,
-      "weeks_played": 9,
+      "total_performance_losses": 4.0,
+      "total_wins": 11.0,
+      "total_losses": 9.0,
+      "total_points": 1256.4,
+      "weeks_played": 10,
       "recent_scores": [
         {
+          "week": 10,
+          "score": 102.5
+        },
+        {
           "week": 9,
-          "score": 128.3
+          "score": 130.05
         },
         {
           "week": 8,
-          "score": 139.65
+          "score": 71.5
         },
         {
           "week": 7,
-          "score": 140.2
+          "score": 101.05
         },
         {
           "week": 6,
-          "score": 85.55
+          "score": 142.1
         },
         {
           "week": 5,
-          "score": 145.15
+          "score": 127.0
         },
         {
           "week": 4,
-          "score": 123.65
+          "score": 159.3
         },
         {
           "week": 3,
-          "score": 105.6
+          "score": 174.85
         },
         {
           "week": 2,
-          "score": 157.95
+          "score": 125.0
         },
         {
           "week": 1,
-          "score": 121.05
+          "score": 123.05
         }
       ],
-      "average_score": 127.45555555555555,
-      "win_percentage": 0.5555555555555556,
-      "rank": 6
+      "average_score": 125.64000000000001,
+      "win_percentage": 0.55,
+      "rank": 4
     },
     {
-      "team_id": 4,
-      "team_name": "Wouldn't Hurts a Fly",
-      "team_key": "461.l.244820.t.4",
-      "total_h2h_wins": 4,
-      "total_h2h_losses": 5,
+      "team_id": 12,
+      "team_name": "Under New Management",
+      "team_key": "461.l.244820.t.12",
+      "total_h2h_wins": 6,
+      "total_h2h_losses": 4,
       "total_h2h_ties": 0,
       "total_performance_wins": 5.0,
-      "total_performance_losses": 4.0,
-      "total_wins": 9.0,
+      "total_performance_losses": 5.0,
+      "total_wins": 11.0,
       "total_losses": 9.0,
-      "total_points": 1070.95,
-      "weeks_played": 9,
+      "total_points": 1241.8500000000001,
+      "weeks_played": 10,
       "recent_scores": [
         {
+          "week": 10,
+          "score": 97.4
+        },
+        {
           "week": 9,
-          "score": 128.05
+          "score": 122.15
         },
         {
           "week": 8,
-          "score": 122.25
+          "score": 73.9
         },
         {
           "week": 7,
-          "score": 118.2
+          "score": 124.5
         },
         {
           "week": 6,
-          "score": 144.95
+          "score": 145.45
         },
         {
           "week": 5,
-          "score": 141.15
+          "score": 145.75
         },
         {
           "week": 4,
-          "score": 62.7
+          "score": 149.05
         },
         {
           "week": 3,
-          "score": 115.4
+          "score": 142.3
         },
         {
           "week": 2,
-          "score": 96.15
+          "score": 105.7
         },
         {
           "week": 1,
-          "score": 142.1
+          "score": 135.65
         }
       ],
-      "average_score": 118.99444444444445,
-      "win_percentage": 0.5,
-      "rank": 7
+      "average_score": 124.18500000000002,
+      "win_percentage": 0.55,
+      "rank": 5
     },
     {
       "team_id": 1,
       "team_name": "Bounty Hunters",
       "team_key": "461.l.244820.t.1",
-      "total_h2h_wins": 5,
+      "total_h2h_wins": 6,
       "total_h2h_losses": 4,
       "total_h2h_ties": 0,
-      "total_performance_wins": 4.0,
+      "total_performance_wins": 5.0,
       "total_performance_losses": 5.0,
-      "total_wins": 9.0,
+      "total_wins": 11.0,
       "total_losses": 9.0,
-      "total_points": 1046.75,
-      "weeks_played": 9,
+      "total_points": 1189.6,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 142.85
+        },
         {
           "week": 9,
           "score": 135.3
@@ -440,24 +354,28 @@
           "score": 130.85
         }
       ],
-      "average_score": 116.30555555555556,
-      "win_percentage": 0.5,
-      "rank": 8
+      "average_score": 118.96,
+      "win_percentage": 0.55,
+      "rank": 6
     },
     {
       "team_id": 6,
       "team_name": "End Zone Sniffer",
       "team_key": "461.l.244820.t.6",
-      "total_h2h_wins": 4,
+      "total_h2h_wins": 5,
       "total_h2h_losses": 5,
       "total_h2h_ties": 0,
-      "total_performance_wins": 4.0,
+      "total_performance_wins": 5.0,
       "total_performance_losses": 5.0,
-      "total_wins": 8.0,
+      "total_wins": 10.0,
       "total_losses": 10.0,
-      "total_points": 1112.5,
-      "weeks_played": 9,
+      "total_points": 1261.75,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 149.25
+        },
         {
           "week": 9,
           "score": 98.35
@@ -495,24 +413,146 @@
           "score": 88.15
         }
       ],
-      "average_score": 123.61111111111111,
-      "win_percentage": 0.4444444444444444,
+      "average_score": 126.175,
+      "win_percentage": 0.5,
+      "rank": 7
+    },
+    {
+      "team_id": 2,
+      "team_name": "\u260e\ufe0f",
+      "team_key": "461.l.244820.t.2",
+      "total_h2h_wins": 4,
+      "total_h2h_losses": 6,
+      "total_h2h_ties": 0,
+      "total_performance_wins": 6.0,
+      "total_performance_losses": 4.0,
+      "total_wins": 10.0,
+      "total_losses": 10.0,
+      "total_points": 1248.3999999999999,
+      "weeks_played": 10,
+      "recent_scores": [
+        {
+          "week": 10,
+          "score": 101.3
+        },
+        {
+          "week": 9,
+          "score": 128.3
+        },
+        {
+          "week": 8,
+          "score": 139.65
+        },
+        {
+          "week": 7,
+          "score": 140.2
+        },
+        {
+          "week": 6,
+          "score": 85.55
+        },
+        {
+          "week": 5,
+          "score": 145.15
+        },
+        {
+          "week": 4,
+          "score": 123.65
+        },
+        {
+          "week": 3,
+          "score": 105.6
+        },
+        {
+          "week": 2,
+          "score": 157.95
+        },
+        {
+          "week": 1,
+          "score": 121.05
+        }
+      ],
+      "average_score": 124.83999999999999,
+      "win_percentage": 0.5,
+      "rank": 8
+    },
+    {
+      "team_id": 4,
+      "team_name": "Wouldn't Hurts a Fly",
+      "team_key": "461.l.244820.t.4",
+      "total_h2h_wins": 4,
+      "total_h2h_losses": 6,
+      "total_h2h_ties": 0,
+      "total_performance_wins": 5.0,
+      "total_performance_losses": 5.0,
+      "total_wins": 9.0,
+      "total_losses": 11.0,
+      "total_points": 1173.3,
+      "weeks_played": 10,
+      "recent_scores": [
+        {
+          "week": 10,
+          "score": 102.35
+        },
+        {
+          "week": 9,
+          "score": 128.05
+        },
+        {
+          "week": 8,
+          "score": 122.25
+        },
+        {
+          "week": 7,
+          "score": 118.2
+        },
+        {
+          "week": 6,
+          "score": 144.95
+        },
+        {
+          "week": 5,
+          "score": 141.15
+        },
+        {
+          "week": 4,
+          "score": 62.7
+        },
+        {
+          "week": 3,
+          "score": 115.4
+        },
+        {
+          "week": 2,
+          "score": 96.15
+        },
+        {
+          "week": 1,
+          "score": 142.1
+        }
+      ],
+      "average_score": 117.33,
+      "win_percentage": 0.45,
       "rank": 9
     },
     {
       "team_id": 3,
       "team_name": "Another Purdy Bad Draft",
       "team_key": "461.l.244820.t.3",
-      "total_h2h_wins": 3,
+      "total_h2h_wins": 4,
       "total_h2h_losses": 6,
       "total_h2h_ties": 0,
       "total_performance_wins": 3.0,
-      "total_performance_losses": 6.0,
-      "total_wins": 6.0,
-      "total_losses": 12.0,
-      "total_points": 1046.55,
-      "weeks_played": 9,
+      "total_performance_losses": 7.0,
+      "total_wins": 7.0,
+      "total_losses": 13.0,
+      "total_points": 1161.05,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 114.5
+        },
         {
           "week": 9,
           "score": 135.7
@@ -550,79 +590,28 @@
           "score": 109.15
         }
       ],
-      "average_score": 116.28333333333333,
-      "win_percentage": 0.3333333333333333,
+      "average_score": 116.10499999999999,
+      "win_percentage": 0.35,
       "rank": 10
-    },
-    {
-      "team_id": 10,
-      "team_name": "Brown and brown \ud83d\udca9\ud83d\udca9\ud83d\udca9",
-      "team_key": "461.l.244820.t.10",
-      "total_h2h_wins": 2,
-      "total_h2h_losses": 7,
-      "total_h2h_ties": 0,
-      "total_performance_wins": 3.0,
-      "total_performance_losses": 6.0,
-      "total_wins": 5.0,
-      "total_losses": 13.0,
-      "total_points": 1127.05,
-      "weeks_played": 9,
-      "recent_scores": [
-        {
-          "week": 9,
-          "score": 120.6
-        },
-        {
-          "week": 8,
-          "score": 120.8
-        },
-        {
-          "week": 7,
-          "score": 170.5
-        },
-        {
-          "week": 6,
-          "score": 88.05
-        },
-        {
-          "week": 5,
-          "score": 115.7
-        },
-        {
-          "week": 4,
-          "score": 112.45
-        },
-        {
-          "week": 3,
-          "score": 144.75
-        },
-        {
-          "week": 2,
-          "score": 144.8
-        },
-        {
-          "week": 1,
-          "score": 109.4
-        }
-      ],
-      "average_score": 125.22777777777777,
-      "win_percentage": 0.2777777777777778,
-      "rank": 11
     },
     {
       "team_id": 11,
       "team_name": "My team is not worthy",
       "team_key": "461.l.244820.t.11",
       "total_h2h_wins": 3,
-      "total_h2h_losses": 6,
+      "total_h2h_losses": 7,
       "total_h2h_ties": 0,
-      "total_performance_wins": 2.0,
+      "total_performance_wins": 3.0,
       "total_performance_losses": 7.0,
-      "total_wins": 5.0,
-      "total_losses": 13.0,
-      "total_points": 1037.35,
-      "weeks_played": 9,
+      "total_wins": 6.0,
+      "total_losses": 14.0,
+      "total_points": 1171.4499999999998,
+      "weeks_played": 10,
       "recent_scores": [
+        {
+          "week": 10,
+          "score": 134.1
+        },
         {
           "week": 9,
           "score": 109.25
@@ -660,17 +649,76 @@
           "score": 114.4
         }
       ],
-      "average_score": 115.2611111111111,
-      "win_percentage": 0.2777777777777778,
+      "average_score": 117.14499999999998,
+      "win_percentage": 0.3,
+      "rank": 11
+    },
+    {
+      "team_id": 10,
+      "team_name": "Brown and brown \ud83d\udca9\ud83d\udca9\ud83d\udca9",
+      "team_key": "461.l.244820.t.10",
+      "total_h2h_wins": 2,
+      "total_h2h_losses": 8,
+      "total_h2h_ties": 0,
+      "total_performance_wins": 3.0,
+      "total_performance_losses": 7.0,
+      "total_wins": 5.0,
+      "total_losses": 15.0,
+      "total_points": 1221.6499999999999,
+      "weeks_played": 10,
+      "recent_scores": [
+        {
+          "week": 10,
+          "score": 94.6
+        },
+        {
+          "week": 9,
+          "score": 120.6
+        },
+        {
+          "week": 8,
+          "score": 120.8
+        },
+        {
+          "week": 7,
+          "score": 170.5
+        },
+        {
+          "week": 6,
+          "score": 88.05
+        },
+        {
+          "week": 5,
+          "score": 115.7
+        },
+        {
+          "week": 4,
+          "score": 112.45
+        },
+        {
+          "week": 3,
+          "score": 144.75
+        },
+        {
+          "week": 2,
+          "score": 144.8
+        },
+        {
+          "week": 1,
+          "score": 109.4
+        }
+      ],
+      "average_score": 122.16499999999999,
+      "win_percentage": 0.25,
       "rank": 12
     }
   ],
   "season_summary": {
-    "total_weeks": 9,
+    "total_weeks": 10,
     "total_teams": 12,
     "leader": "Josh Allen Waddles",
-    "leader_wins": 12.0,
+    "leader_wins": 14.0,
     "most_points": "Josh Allen Waddles",
-    "highest_total_points": 1217.3000000000002
+    "highest_total_points": 1354.8000000000002
   }
 }
