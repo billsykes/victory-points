@@ -20,6 +20,7 @@ on:
 
 jobs:
   update-standings:
+    if: false  # Disabled - fantasy season is over
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Allow pushing changes to repository

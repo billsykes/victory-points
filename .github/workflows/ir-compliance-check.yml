@@ -25,6 +25,7 @@ on:
 
 jobs:
   ir-compliance-check:
+    if: false  # Disabled - fantasy season is over
     runs-on: ubuntu-latest
     
     steps:
