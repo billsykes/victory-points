@@ -393,6 +393,7 @@ class YahooFantasyClient:
             for team in teams:
                 try:
                     roster = self.get_team_roster(team['team_id'], week)
+                    roster['team_key'] = team['team_key']
                     roster['team_name'] = team['name']
                     roster['manager'] = team['manager']
                     rosters.append(roster)

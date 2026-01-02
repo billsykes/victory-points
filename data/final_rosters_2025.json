@@ -1,0 +1,2133 @@
+{
+  "season": 2025,
+  "week": 17,
+  "league_name": "Newtown Knuckleheads",
+  "league_id": "244820",
+  "date_saved": "2026-01-02T17:40:14.837385",
+  "num_teams": 12,
+  "rosters": [
+    {
+      "team_id": 1,
+      "team_key": "461.l.244820.t.1",
+      "team_name": "Bounty Hunters",
+      "manager": "Bill",
+      "num_players": 16,
+      "num_ir_players": 0,
+      "players": [
+        {
+          "player_id": 41810,
+          "player_key": "461.p.41810",
+          "name": "Jaxson Dart",
+          "position": "QB",
+          "nfl_team": "NYG",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40041,
+          "player_key": "461.p.40041",
+          "name": "Jaxon Smith-Njigba",
+          "position": "WR",
+          "nfl_team": "Sea",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32687,
+          "player_key": "461.p.32687",
+          "name": "CeeDee Lamb",
+          "position": "WR",
+          "nfl_team": "Dal",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40121,
+          "player_key": "461.p.40121",
+          "name": "Michael Wilson",
+          "position": "WR",
+          "nfl_team": "Ari",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33413,
+          "player_key": "461.p.33413",
+          "name": "Travis Etienne Jr.",
+          "position": "RB",
+          "nfl_team": "Jax",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41845,
+          "player_key": "461.p.41845",
+          "name": "RJ Harvey",
+          "position": "RB",
+          "nfl_team": "Den",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34010,
+          "player_key": "461.p.34010",
+          "name": "Trey McBride",
+          "position": "TE",
+          "nfl_team": "Ari",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41823,
+          "player_key": "461.p.41823",
+          "name": "TreVeyon Henderson",
+          "position": "RB",
+          "nfl_team": "NE",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41907,
+          "player_key": "461.p.41907",
+          "name": "Dylan Sampson",
+          "position": "RB",
+          "nfl_team": "Cle",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33113,
+          "player_key": "461.p.33113",
+          "name": "Juwan Johnson",
+          "position": "TE",
+          "nfl_team": "NO",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41951,
+          "player_key": "461.p.41951",
+          "name": "Oronde Gadsden",
+          "position": "TE",
+          "nfl_team": "LAC",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40911,
+          "player_key": "461.p.40911",
+          "name": "Keon Coleman",
+          "position": "WR",
+          "nfl_team": "Buf",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41087,
+          "player_key": "461.p.41087",
+          "name": "Ryan Flournoy",
+          "position": "WR",
+          "nfl_team": "Dal",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40905,
+          "player_key": "461.p.40905",
+          "name": "J.J. McCarthy",
+          "position": "QB",
+          "nfl_team": "Min",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40707,
+          "player_key": "461.p.40707",
+          "name": "Emanuel Wilson",
+          "position": "RB",
+          "nfl_team": "GB",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41808,
+          "player_key": "461.p.41808",
+          "name": "Matthew Golden",
+          "position": "WR",
+          "nfl_team": "GB",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        }
+      ]
+    },
+    {
+      "team_id": 2,
+      "team_key": "461.l.244820.t.2",
+      "team_name": "Imbruglia's Ligaments",
+      "manager": "buylowsellhigh",
+      "num_players": 16,
+      "num_ir_players": 1,
+      "players": [
+        {
+          "player_id": 9265,
+          "player_key": "461.p.9265",
+          "name": "Matthew Stafford",
+          "position": "QB",
+          "nfl_team": "LAR",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33393,
+          "player_key": "461.p.33393",
+          "name": "Ja'Marr Chase",
+          "position": "WR",
+          "nfl_team": "Cin",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40168,
+          "player_key": "461.p.40168",
+          "name": "Puka Nacua",
+          "position": "WR",
+          "nfl_team": "LAR",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34008,
+          "player_key": "461.p.34008",
+          "name": "Alec Pierce",
+          "position": "WR",
+          "nfl_team": "Ind",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41048,
+          "player_key": "461.p.41048",
+          "name": "Tyrone Tracy Jr.",
+          "position": "RB",
+          "nfl_team": "NYG",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33495,
+          "player_key": "461.p.33495",
+          "name": "Michael Carter",
+          "position": "RB",
+          "nfl_team": "Ari",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31107,
+          "player_key": "461.p.31107",
+          "name": "Dalton Schultz",
+          "position": "TE",
+          "nfl_team": "Hou",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34104,
+          "player_key": "461.p.34104",
+          "name": "Khalil Shakir",
+          "position": "WR",
+          "nfl_team": "Buf",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30614,
+          "player_key": "461.p.30614",
+          "name": "Taysom Hill",
+          "position": "TE",
+          "nfl_team": "NO",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41864,
+          "player_key": "461.p.41864",
+          "name": "Kyle Williams",
+          "position": "WR",
+          "nfl_team": "NE",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 42139,
+          "player_key": "461.p.42139",
+          "name": "Raheim Sanders",
+          "position": "RB",
+          "nfl_team": "Cle",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32803,
+          "player_key": "461.p.32803",
+          "name": "Colby Parkinson",
+          "position": "TE",
+          "nfl_team": "LAR",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40065,
+          "player_key": "461.p.40065",
+          "name": "Michael Mayer",
+          "position": "TE",
+          "nfl_team": "LV",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34374,
+          "player_key": "461.p.34374",
+          "name": "Jake Tonges",
+          "position": "TE",
+          "nfl_team": "SF",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31928,
+          "player_key": "461.p.31928",
+          "name": "Dawson Knox",
+          "position": "TE",
+          "nfl_team": "Buf",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40102,
+          "player_key": "461.p.40102",
+          "name": "Tucker Kraft",
+          "position": "TE",
+          "nfl_team": "GB",
+          "roster_position": "IR",
+          "status": "IR",
+          "is_ir_slot": true,
+          "injury_note": "Knee - ACL"
+        }
+      ]
+    },
+    {
+      "team_id": 3,
+      "team_key": "461.l.244820.t.3",
+      "team_name": "Another Purdy Bad Draft",
+      "manager": "Dan Moore",
+      "num_players": 16,
+      "num_ir_players": 0,
+      "players": [
+        {
+          "player_id": 32671,
+          "player_key": "461.p.32671",
+          "name": "Joe Burrow",
+          "position": "QB",
+          "nfl_team": "Cin",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32692,
+          "player_key": "461.p.32692",
+          "name": "Justin Jefferson",
+          "position": "WR",
+          "nfl_team": "Min",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33967,
+          "player_key": "461.p.33967",
+          "name": "Jameson Williams",
+          "position": "WR",
+          "nfl_team": "Det",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31868,
+          "player_key": "461.p.31868",
+          "name": "Deebo Samuel",
+          "position": "WR",
+          "nfl_team": "Was",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40196,
+          "player_key": "461.p.40196",
+          "name": "Chase Brown",
+          "position": "RB",
+          "nfl_team": "Cin",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41807,
+          "player_key": "461.p.41807",
+          "name": "Omarion Hampton",
+          "position": "RB",
+          "nfl_team": "LAC",
+          "roster_position": "RB",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Ankle"
+        },
+        {
+          "player_id": 41799,
+          "player_key": "461.p.41799",
+          "name": "Tyler Warren",
+          "position": "TE",
+          "nfl_team": "Ind",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30259,
+          "player_key": "461.p.30259",
+          "name": "George Kittle",
+          "position": "TE",
+          "nfl_team": "SF",
+          "roster_position": "W/R/T",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Ankle"
+        },
+        {
+          "player_id": 41009,
+          "player_key": "461.p.41009",
+          "name": "Troy Franklin",
+          "position": "WR",
+          "nfl_team": "Den",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34218,
+          "player_key": "461.p.34218",
+          "name": "Brock Purdy",
+          "position": "QB",
+          "nfl_team": "SF",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41902,
+          "player_key": "461.p.41902",
+          "name": "Woody Marks",
+          "position": "RB",
+          "nfl_team": "Hou",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31002,
+          "player_key": "461.p.31002",
+          "name": "Lamar Jackson",
+          "position": "QB",
+          "nfl_team": "Bal",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41052,
+          "player_key": "461.p.41052",
+          "name": "Kimani Vidal",
+          "position": "RB",
+          "nfl_team": "LAC",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Neck"
+        },
+        {
+          "player_id": 42025,
+          "player_key": "461.p.42025",
+          "name": "Kyle Monangai",
+          "position": "RB",
+          "nfl_team": "Chi",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40075,
+          "player_key": "461.p.40075",
+          "name": "Zach Charbonnet",
+          "position": "RB",
+          "nfl_team": "Sea",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40119,
+          "player_key": "461.p.40119",
+          "name": "Tyjae Spears",
+          "position": "RB",
+          "nfl_team": "Ten",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        }
+      ]
+    },
+    {
+      "team_id": 4,
+      "team_key": "461.l.244820.t.4",
+      "team_name": "Wouldn't Hurts a Fly",
+      "manager": "Huey",
+      "num_players": 16,
+      "num_ir_players": 0,
+      "players": [
+        {
+          "player_id": 32723,
+          "player_key": "461.p.32723",
+          "name": "Jalen Hurts",
+          "position": "QB",
+          "nfl_team": "Phi",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40908,
+          "player_key": "461.p.40908",
+          "name": "Ladd McConkey",
+          "position": "WR",
+          "nfl_team": "LAC",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40063,
+          "player_key": "461.p.40063",
+          "name": "Jayden Reed",
+          "position": "WR",
+          "nfl_team": "GB",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32703,
+          "player_key": "461.p.32703",
+          "name": "Tee Higgins",
+          "position": "WR",
+          "nfl_team": "Cin",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 29279,
+          "player_key": "461.p.29279",
+          "name": "Derrick Henry",
+          "position": "RB",
+          "nfl_team": "Bal",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31905,
+          "player_key": "461.p.31905",
+          "name": "David Montgomery",
+          "position": "RB",
+          "nfl_team": "Det",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31852,
+          "player_key": "461.p.31852",
+          "name": "Noah Fant",
+          "position": "TE",
+          "nfl_team": "Cin",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32231,
+          "player_key": "461.p.32231",
+          "name": "Jakobi Meyers",
+          "position": "WR",
+          "nfl_team": "Jax",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34659,
+          "player_key": "461.p.34659",
+          "name": "Rashid Shaheed",
+          "position": "WR",
+          "nfl_team": "Sea",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33999,
+          "player_key": "461.p.33999",
+          "name": "John Metchie III",
+          "position": "WR",
+          "nfl_team": "NYJ",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34094,
+          "player_key": "461.p.34094",
+          "name": "Calvin Austin III",
+          "position": "WR",
+          "nfl_team": "Pit",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41903,
+          "player_key": "461.p.41903",
+          "name": "Chimere Dike",
+          "position": "WR",
+          "nfl_team": "Ten",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40093,
+          "player_key": "461.p.40093",
+          "name": "Cedric Tillman",
+          "position": "WR",
+          "nfl_team": "Cle",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 42030,
+          "player_key": "461.p.42030",
+          "name": "Tez Johnson",
+          "position": "WR",
+          "nfl_team": "TB",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41786,
+          "player_key": "461.p.41786",
+          "name": "Cam Ward",
+          "position": "QB",
+          "nfl_team": "Ten",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41922,
+          "player_key": "461.p.41922",
+          "name": "Cam Skattebo",
+          "position": "RB",
+          "nfl_team": "NYG",
+          "roster_position": "BN",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Ankle"
+        }
+      ]
+    },
+    {
+      "team_id": 5,
+      "team_key": "461.l.244820.t.5",
+      "team_name": "Speed Divas & Demons",
+      "manager": "Dan Van Hise",
+      "num_players": 16,
+      "num_ir_players": 0,
+      "players": [
+        {
+          "player_id": 30973,
+          "player_key": "461.p.30973",
+          "name": "Sam Darnold",
+          "position": "QB",
+          "nfl_team": "Sea",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33477,
+          "player_key": "461.p.33477",
+          "name": "Nico Collins",
+          "position": "WR",
+          "nfl_team": "Hou",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34007,
+          "player_key": "461.p.34007",
+          "name": "George Pickens",
+          "position": "WR",
+          "nfl_team": "Dal",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31010,
+          "player_key": "461.p.31010",
+          "name": "Courtland Sutton",
+          "position": "WR",
+          "nfl_team": "Den",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40055,
+          "player_key": "461.p.40055",
+          "name": "Bijan Robinson",
+          "position": "RB",
+          "nfl_team": "Atl",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33996,
+          "player_key": "461.p.33996",
+          "name": "Kenneth Walker III",
+          "position": "RB",
+          "nfl_team": "Sea",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40078,
+          "player_key": "461.p.40078",
+          "name": "Brenton Strange",
+          "position": "TE",
+          "nfl_team": "Jax",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40114,
+          "player_key": "461.p.40114",
+          "name": "Tre Tucker",
+          "position": "WR",
+          "nfl_team": "LV",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40126,
+          "player_key": "461.p.40126",
+          "name": "Josh Downs",
+          "position": "WR",
+          "nfl_team": "Ind",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33989,
+          "player_key": "461.p.33989",
+          "name": "Christian Watson",
+          "position": "WR",
+          "nfl_team": "GB",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40030,
+          "player_key": "461.p.40030",
+          "name": "C.J. Stroud",
+          "position": "QB",
+          "nfl_team": "Hou",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40048,
+          "player_key": "461.p.40048",
+          "name": "Dalton Kincaid",
+          "position": "TE",
+          "nfl_team": "Buf",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 40915,
+          "player_key": "461.p.40915",
+          "name": "Adonai Mitchell",
+          "position": "WR",
+          "nfl_team": "NYJ",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32003,
+          "player_key": "461.p.32003",
+          "name": "Darius Slayton",
+          "position": "WR",
+          "nfl_team": "NYG",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34320,
+          "player_key": "461.p.34320",
+          "name": "Jordan Mason",
+          "position": "RB",
+          "nfl_team": "Min",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34207,
+          "player_key": "461.p.34207",
+          "name": "Isiah Pacheco",
+          "position": "RB",
+          "nfl_team": "KC",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Rest"
+        }
+      ]
+    },
+    {
+      "team_id": 6,
+      "team_key": "461.l.244820.t.6",
+      "team_name": "End Zone Sniffer",
+      "manager": "Steve",
+      "num_players": 16,
+      "num_ir_players": 0,
+      "players": [
+        {
+          "player_id": 30971,
+          "player_key": "461.p.30971",
+          "name": "Baker Mayfield",
+          "position": "QB",
+          "nfl_team": "TB",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33398,
+          "player_key": "461.p.33398",
+          "name": "DeVonta Smith",
+          "position": "WR",
+          "nfl_team": "Phi",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31908,
+          "player_key": "461.p.31908",
+          "name": "Terry McLaurin",
+          "position": "WR",
+          "nfl_team": "Was",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40042,
+          "player_key": "461.p.40042",
+          "name": "Jordan Addison",
+          "position": "WR",
+          "nfl_team": "Min",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41791,
+          "player_key": "461.p.41791",
+          "name": "Ashton Jeanty",
+          "position": "RB",
+          "nfl_team": "LV",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32711,
+          "player_key": "461.p.32711",
+          "name": "Jonathan Taylor",
+          "position": "RB",
+          "nfl_team": "Ind",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31019,
+          "player_key": "461.p.31019",
+          "name": "Dallas Goedert",
+          "position": "TE",
+          "nfl_team": "Phi",
+          "roster_position": "TE",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 32887,
+          "player_key": "461.p.32887",
+          "name": "Jauan Jennings",
+          "position": "WR",
+          "nfl_team": "SF",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 29269,
+          "player_key": "461.p.29269",
+          "name": "Hunter Henry",
+          "position": "TE",
+          "nfl_team": "NE",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34095,
+          "player_key": "461.p.34095",
+          "name": "Isaiah Likely",
+          "position": "TE",
+          "nfl_team": "Bal",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30199,
+          "player_key": "461.p.30199",
+          "name": "Kareem Hunt",
+          "position": "RB",
+          "nfl_team": "KC",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40980,
+          "player_key": "461.p.40980",
+          "name": "Ray Davis",
+          "position": "RB",
+          "nfl_team": "Buf",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34054,
+          "player_key": "461.p.34054",
+          "name": "Brian Robinson Jr.",
+          "position": "RB",
+          "nfl_team": "SF",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32018,
+          "player_key": "461.p.32018",
+          "name": "Ty Johnson",
+          "position": "RB",
+          "nfl_team": "Buf",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34261,
+          "player_key": "461.p.34261",
+          "name": "Tyler Goodson",
+          "position": "RB",
+          "nfl_team": "Ind",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40095,
+          "player_key": "461.p.40095",
+          "name": "Tank Bigsby",
+          "position": "RB",
+          "nfl_team": "Phi",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        }
+      ]
+    },
+    {
+      "team_id": 7,
+      "team_key": "461.l.244820.t.7",
+      "team_name": "JJDynamite",
+      "manager": "Matt Johnson",
+      "num_players": 16,
+      "num_ir_players": 0,
+      "players": [
+        {
+          "player_id": 40875,
+          "player_key": "461.p.40875",
+          "name": "Bo Nix",
+          "position": "QB",
+          "nfl_team": "Den",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31896,
+          "player_key": "461.p.31896",
+          "name": "DK Metcalf",
+          "position": "WR",
+          "nfl_team": "Pit",
+          "roster_position": "WR",
+          "status": "SUSP",
+          "is_ir_slot": false,
+          "injury_note": "Suspension"
+        },
+        {
+          "player_id": 41804,
+          "player_key": "461.p.41804",
+          "name": "Emeka Egbuka",
+          "position": "WR",
+          "nfl_team": "TB",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41793,
+          "player_key": "461.p.41793",
+          "name": "Tetairoa McMillan",
+          "position": "WR",
+          "nfl_team": "Car",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34120,
+          "player_key": "461.p.34120",
+          "name": "Kyren Williams",
+          "position": "RB",
+          "nfl_team": "LAR",
+          "roster_position": "RB",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Ankle"
+        },
+        {
+          "player_id": 32705,
+          "player_key": "461.p.32705",
+          "name": "D'Andre Swift",
+          "position": "RB",
+          "nfl_team": "Chi",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31012,
+          "player_key": "461.p.31012",
+          "name": "Mike Gesicki",
+          "position": "TE",
+          "nfl_team": "Cin",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31856,
+          "player_key": "461.p.31856",
+          "name": "Josh Jacobs",
+          "position": "RB",
+          "nfl_team": "GB",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33538,
+          "player_key": "461.p.33538",
+          "name": "Kenneth Gainwell",
+          "position": "RB",
+          "nfl_team": "Pit",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41097,
+          "player_key": "461.p.41097",
+          "name": "Devaughn Vele",
+          "position": "WR",
+          "nfl_team": "NO",
+          "roster_position": "BN",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Shoulder"
+        },
+        {
+          "player_id": 30182,
+          "player_key": "461.p.30182",
+          "name": "Cooper Kupp",
+          "position": "WR",
+          "nfl_team": "Sea",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40234,
+          "player_key": "461.p.40234",
+          "name": "Parker Washington",
+          "position": "WR",
+          "nfl_team": "Jax",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40900,
+          "player_key": "461.p.40900",
+          "name": "Caleb Williams",
+          "position": "QB",
+          "nfl_team": "Chi",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34107,
+          "player_key": "461.p.34107",
+          "name": "Tyler Allgeier",
+          "position": "RB",
+          "nfl_team": "Atl",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33514,
+          "player_key": "461.p.33514",
+          "name": "Chuba Hubbard",
+          "position": "RB",
+          "nfl_team": "Car",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41001,
+          "player_key": "461.p.41001",
+          "name": "AJ Barner",
+          "position": "TE",
+          "nfl_team": "Sea",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        }
+      ]
+    },
+    {
+      "team_id": 8,
+      "team_key": "461.l.244820.t.8",
+      "team_name": "Josh Allen Waddles",
+      "manager": "Scott",
+      "num_players": 16,
+      "num_ir_players": 1,
+      "players": [
+        {
+          "player_id": 29235,
+          "player_key": "461.p.29235",
+          "name": "Jared Goff",
+          "position": "QB",
+          "nfl_team": "Det",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40039,
+          "player_key": "461.p.40039",
+          "name": "Zay Flowers",
+          "position": "WR",
+          "nfl_team": "Bal",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33394,
+          "player_key": "461.p.33394",
+          "name": "Jaylen Waddle",
+          "position": "WR",
+          "nfl_team": "Mia",
+          "roster_position": "WR",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Ribs"
+        },
+        {
+          "player_id": 40893,
+          "player_key": "461.p.40893",
+          "name": "Marvin Harrison Jr.",
+          "position": "WR",
+          "nfl_team": "Ari",
+          "roster_position": "WR",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Foot"
+        },
+        {
+          "player_id": 34019,
+          "player_key": "461.p.34019",
+          "name": "James Cook III",
+          "position": "RB",
+          "nfl_team": "Buf",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30972,
+          "player_key": "461.p.30972",
+          "name": "Saquon Barkley",
+          "position": "RB",
+          "nfl_team": "Phi",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 26686,
+          "player_key": "461.p.26686",
+          "name": "Travis Kelce",
+          "position": "TE",
+          "nfl_team": "KC",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34088,
+          "player_key": "461.p.34088",
+          "name": "Romeo Doubs",
+          "position": "WR",
+          "nfl_team": "GB",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33966,
+          "player_key": "461.p.33966",
+          "name": "Chris Olave",
+          "position": "WR",
+          "nfl_team": "NO",
+          "roster_position": "W/R/T",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Illness"
+        },
+        {
+          "player_id": 33465,
+          "player_key": "461.p.33465",
+          "name": "Joshua Palmer",
+          "position": "WR",
+          "nfl_team": "Buf",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40051,
+          "player_key": "461.p.40051",
+          "name": "Quentin Johnston",
+          "position": "WR",
+          "nfl_team": "LAC",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30123,
+          "player_key": "461.p.30123",
+          "name": "Patrick Mahomes",
+          "position": "QB",
+          "nfl_team": "KC",
+          "roster_position": "BN",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Knee - ACL"
+        },
+        {
+          "player_id": 34047,
+          "player_key": "461.p.34047",
+          "name": "Rachaad White",
+          "position": "RB",
+          "nfl_team": "TB",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33443,
+          "player_key": "461.p.33443",
+          "name": "Pat Freiermuth",
+          "position": "TE",
+          "nfl_team": "Pit",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40962,
+          "player_key": "461.p.40962",
+          "name": "Blake Corum",
+          "position": "RB",
+          "nfl_team": "LAR",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Ankle"
+        },
+        {
+          "player_id": 32725,
+          "player_key": "461.p.32725",
+          "name": "J.K. Dobbins",
+          "position": "RB",
+          "nfl_team": "Den",
+          "roster_position": "IR",
+          "status": "IR",
+          "is_ir_slot": true,
+          "injury_note": "Foot"
+        }
+      ]
+    },
+    {
+      "team_id": 9,
+      "team_key": "461.l.244820.t.9",
+      "team_name": "LOVE ME SOME MOORE JUDKINS \ud83c\udfc6",
+      "manager": "Mark",
+      "num_players": 17,
+      "num_ir_players": 1,
+      "players": [
+        {
+          "player_id": 41825,
+          "player_key": "461.p.41825",
+          "name": "Tyler Shough",
+          "position": "QB",
+          "nfl_team": "NO",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30994,
+          "player_key": "461.p.30994",
+          "name": "DJ Moore",
+          "position": "WR",
+          "nfl_team": "Chi",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40883,
+          "player_key": "461.p.40883",
+          "name": "Brian Thomas Jr.",
+          "position": "WR",
+          "nfl_team": "Jax",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 28534,
+          "player_key": "461.p.28534",
+          "name": "Stefon Diggs",
+          "position": "WR",
+          "nfl_team": "NE",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40118,
+          "player_key": "461.p.40118",
+          "name": "De'Von Achane",
+          "position": "RB",
+          "nfl_team": "Mia",
+          "roster_position": "RB",
+          "status": "D",
+          "is_ir_slot": false,
+          "injury_note": "Shoulder"
+        },
+        {
+          "player_id": 40993,
+          "player_key": "461.p.40993",
+          "name": "Bucky Irving",
+          "position": "RB",
+          "nfl_team": "TB",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41877,
+          "player_key": "461.p.41877",
+          "name": "Harold Fannin Jr.",
+          "position": "TE",
+          "nfl_team": "Cle",
+          "roster_position": "TE",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Groin"
+        },
+        {
+          "player_id": 30295,
+          "player_key": "461.p.30295",
+          "name": "Aaron Jones Sr.",
+          "position": "RB",
+          "nfl_team": "Min",
+          "roster_position": "W/R/T",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Hip"
+        },
+        {
+          "player_id": 33998,
+          "player_key": "461.p.33998",
+          "name": "Wan'Dale Robinson",
+          "position": "WR",
+          "nfl_team": "NYG",
+          "roster_position": "W/R/T",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Ribs"
+        },
+        {
+          "player_id": 41795,
+          "player_key": "461.p.41795",
+          "name": "Colston Loveland",
+          "position": "TE",
+          "nfl_team": "Chi",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41821,
+          "player_key": "461.p.41821",
+          "name": "Quinshon Judkins",
+          "position": "RB",
+          "nfl_team": "Cle",
+          "roster_position": "BN",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Ankle"
+        },
+        {
+          "player_id": 32696,
+          "player_key": "461.p.32696",
+          "name": "Jordan Love",
+          "position": "QB",
+          "nfl_team": "GB",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 27581,
+          "player_key": "461.p.27581",
+          "name": "Davante Adams",
+          "position": "WR",
+          "nfl_team": "LAR",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Hamstring"
+        },
+        {
+          "player_id": 41003,
+          "player_key": "461.p.41003",
+          "name": "Theo Johnson",
+          "position": "TE",
+          "nfl_team": "NYG",
+          "roster_position": "BN",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Illness"
+        },
+        {
+          "player_id": 33100,
+          "player_key": "461.p.33100",
+          "name": "Rico Dowdle",
+          "position": "RB",
+          "nfl_team": "Car",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41860,
+          "player_key": "461.p.41860",
+          "name": "Pat Bryant",
+          "position": "WR",
+          "nfl_team": "Den",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30161,
+          "player_key": "461.p.30161",
+          "name": "Joe Mixon",
+          "position": "RB",
+          "nfl_team": "Hou",
+          "roster_position": "IR",
+          "status": "NFI-R",
+          "is_ir_slot": true,
+          "injury_note": "Foot"
+        }
+      ]
+    },
+    {
+      "team_id": 10,
+      "team_key": "461.l.244820.t.10",
+      "team_name": "Brown and brown \ud83d\udca9\ud83d\udca9\ud83d\udca9",
+      "manager": "Cory",
+      "num_players": 17,
+      "num_ir_players": 1,
+      "players": [
+        {
+          "player_id": 29369,
+          "player_key": "461.p.29369",
+          "name": "Dak Prescott",
+          "position": "QB",
+          "nfl_team": "Dal",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31883,
+          "player_key": "461.p.31883",
+          "name": "A.J. Brown",
+          "position": "WR",
+          "nfl_team": "Phi",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32704,
+          "player_key": "461.p.32704",
+          "name": "Michael Pittman Jr.",
+          "position": "WR",
+          "nfl_team": "Ind",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33500,
+          "player_key": "461.p.33500",
+          "name": "Amon-Ra St. Brown",
+          "position": "WR",
+          "nfl_team": "Det",
+          "roster_position": "WR",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 34447,
+          "player_key": "461.p.34447",
+          "name": "Jaylen Warren",
+          "position": "RB",
+          "nfl_team": "Pit",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33991,
+          "player_key": "461.p.33991",
+          "name": "Breece Hall",
+          "position": "RB",
+          "nfl_team": "NYJ",
+          "roster_position": "RB",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 33392,
+          "player_key": "461.p.33392",
+          "name": "Kyle Pitts Sr.",
+          "position": "TE",
+          "nfl_team": "Atl",
+          "roster_position": "TE",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 26699,
+          "player_key": "461.p.26699",
+          "name": "Keenan Allen",
+          "position": "WR",
+          "nfl_team": "LAC",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30197,
+          "player_key": "461.p.30197",
+          "name": "Chris Godwin Jr.",
+          "position": "WR",
+          "nfl_team": "TB",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41293,
+          "player_key": "461.p.41293",
+          "name": "Jalen Coker",
+          "position": "WR",
+          "nfl_team": "Car",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31840,
+          "player_key": "461.p.31840",
+          "name": "T.J. Hockenson",
+          "position": "TE",
+          "nfl_team": "Min",
+          "roster_position": "BN",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Shoulder"
+        },
+        {
+          "player_id": 30180,
+          "player_key": "461.p.30180",
+          "name": "Alvin Kamara",
+          "position": "RB",
+          "nfl_team": "NO",
+          "roster_position": "BN",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Knee - MCL"
+        },
+        {
+          "player_id": 41904,
+          "player_key": "461.p.41904",
+          "name": "Elic Ayomanor",
+          "position": "WR",
+          "nfl_team": "Ten",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32676,
+          "player_key": "461.p.32676",
+          "name": "Justin Herbert",
+          "position": "QB",
+          "nfl_team": "LAC",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31005,
+          "player_key": "461.p.31005",
+          "name": "Nick Chubb",
+          "position": "RB",
+          "nfl_team": "Hou",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41930,
+          "player_key": "461.p.41930",
+          "name": "Shedeur Sanders",
+          "position": "QB",
+          "nfl_team": "Cle",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40430,
+          "player_key": "461.p.40430",
+          "name": "Emari Demercado",
+          "position": "RB",
+          "nfl_team": "Ari",
+          "roster_position": "IR",
+          "status": "",
+          "is_ir_slot": true
+        }
+      ]
+    },
+    {
+      "team_id": 11,
+      "team_key": "461.l.244820.t.11",
+      "team_name": "My team is not worthy",
+      "manager": "Bobby Pan",
+      "num_players": 17,
+      "num_ir_players": 1,
+      "players": [
+        {
+          "player_id": 30977,
+          "player_key": "461.p.30977",
+          "name": "Josh Allen",
+          "position": "QB",
+          "nfl_team": "Buf",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40877,
+          "player_key": "461.p.40877",
+          "name": "Xavier Worthy",
+          "position": "WR",
+          "nfl_team": "KC",
+          "roster_position": "WR",
+          "status": "D",
+          "is_ir_slot": false,
+          "injury_note": "Illness"
+        },
+        {
+          "player_id": 32843,
+          "player_key": "461.p.32843",
+          "name": "Darnell Mooney",
+          "position": "WR",
+          "nfl_team": "Atl",
+          "roster_position": "WR",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 41058,
+          "player_key": "461.p.41058",
+          "name": "Malik Washington",
+          "position": "WR",
+          "nfl_team": "Mia",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40059,
+          "player_key": "461.p.40059",
+          "name": "Jahmyr Gibbs",
+          "position": "RB",
+          "nfl_team": "Det",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33423,
+          "player_key": "461.p.33423",
+          "name": "Javonte Williams",
+          "position": "RB",
+          "nfl_team": "Dal",
+          "roster_position": "RB",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Shoulder"
+        },
+        {
+          "player_id": 40878,
+          "player_key": "461.p.40878",
+          "name": "Brock Bowers",
+          "position": "TE",
+          "nfl_team": "LV",
+          "roster_position": "TE",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Knee - PCL"
+        },
+        {
+          "player_id": 31960,
+          "player_key": "461.p.31960",
+          "name": "Tony Pollard",
+          "position": "RB",
+          "nfl_team": "Ten",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33508,
+          "player_key": "461.p.33508",
+          "name": "Rhamondre Stevenson",
+          "position": "RB",
+          "nfl_team": "NE",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40901,
+          "player_key": "461.p.40901",
+          "name": "Rome Odunze",
+          "position": "WR",
+          "nfl_team": "Chi",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Foot"
+        },
+        {
+          "player_id": 40201,
+          "player_key": "461.p.40201",
+          "name": "Dontayvion Wicks",
+          "position": "WR",
+          "nfl_team": "GB",
+          "roster_position": "BN",
+          "status": "D",
+          "is_ir_slot": false,
+          "injury_note": "Concussion"
+        },
+        {
+          "player_id": 30231,
+          "player_key": "461.p.30231",
+          "name": "Mack Hollins",
+          "position": "WR",
+          "nfl_team": "NE",
+          "roster_position": "BN",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Abdomen"
+        },
+        {
+          "player_id": 31906,
+          "player_key": "461.p.31906",
+          "name": "Devin Singletary",
+          "position": "RB",
+          "nfl_team": "NYG",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33389,
+          "player_key": "461.p.33389",
+          "name": "Trevor Lawrence",
+          "position": "QB",
+          "nfl_team": "Jax",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32695,
+          "player_key": "461.p.32695",
+          "name": "Brandon Aiyuk",
+          "position": "WR",
+          "nfl_team": "SF",
+          "roster_position": "BN",
+          "status": "DNR",
+          "is_ir_slot": false,
+          "injury_note": "Knee - ACL + MCL"
+        },
+        {
+          "player_id": 41865,
+          "player_key": "461.p.41865",
+          "name": "Isaac TeSlaa",
+          "position": "WR",
+          "nfl_team": "Det",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 27535,
+          "player_key": "461.p.27535",
+          "name": "Mike Evans",
+          "position": "WR",
+          "nfl_team": "TB",
+          "roster_position": "IR",
+          "status": "",
+          "is_ir_slot": true
+        }
+      ]
+    },
+    {
+      "team_id": 12,
+      "team_key": "461.l.244820.t.12",
+      "team_name": "Under New Management",
+      "manager": "Dryz",
+      "num_players": 17,
+      "num_ir_players": 1,
+      "players": [
+        {
+          "player_id": 29325,
+          "player_key": "461.p.29325",
+          "name": "Jacoby Brissett",
+          "position": "QB",
+          "nfl_team": "Ari",
+          "roster_position": "QB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41824,
+          "player_key": "461.p.41824",
+          "name": "Luther Burden III",
+          "position": "WR",
+          "nfl_team": "Chi",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 32685,
+          "player_key": "461.p.32685",
+          "name": "Jerry Jeudy",
+          "position": "WR",
+          "nfl_team": "Cle",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34147,
+          "player_key": "461.p.34147",
+          "name": "Jalen Nailor",
+          "position": "WR",
+          "nfl_team": "Min",
+          "roster_position": "WR",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 41900,
+          "player_key": "461.p.41900",
+          "name": "Bhayshul Tuten",
+          "position": "RB",
+          "nfl_team": "Jax",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 42010,
+          "player_key": "461.p.42010",
+          "name": "Jacory Croskey-Merritt",
+          "position": "RB",
+          "nfl_team": "Was",
+          "roster_position": "RB",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 34085,
+          "player_key": "461.p.34085",
+          "name": "Jake Ferguson",
+          "position": "TE",
+          "nfl_team": "Dal",
+          "roster_position": "TE",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 30136,
+          "player_key": "461.p.30136",
+          "name": "Evan Engram",
+          "position": "TE",
+          "nfl_team": "Den",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 31017,
+          "player_key": "461.p.31017",
+          "name": "Christian Kirk",
+          "position": "WR",
+          "nfl_team": "Hou",
+          "roster_position": "W/R/T",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33963,
+          "player_key": "461.p.33963",
+          "name": "Drake London",
+          "position": "WR",
+          "nfl_team": "Atl",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee - PCL"
+        },
+        {
+          "player_id": 40881,
+          "player_key": "461.p.40881",
+          "name": "Drake Maye",
+          "position": "QB",
+          "nfl_team": "NE",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40892,
+          "player_key": "461.p.40892",
+          "name": "Ricky Pearsall",
+          "position": "WR",
+          "nfl_team": "SF",
+          "roster_position": "BN",
+          "status": "Q",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 30121,
+          "player_key": "461.p.30121",
+          "name": "Christian McCaffrey",
+          "position": "RB",
+          "nfl_team": "SF",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 40224,
+          "player_key": "461.p.40224",
+          "name": "Kayshon Boutte",
+          "position": "WR",
+          "nfl_team": "NE",
+          "roster_position": "BN",
+          "status": "",
+          "is_ir_slot": false
+        },
+        {
+          "player_id": 33965,
+          "player_key": "461.p.33965",
+          "name": "Garrett Wilson",
+          "position": "WR",
+          "nfl_team": "NYJ",
+          "roster_position": "BN",
+          "status": "IR",
+          "is_ir_slot": false,
+          "injury_note": "Knee"
+        },
+        {
+          "player_id": 40896,
+          "player_key": "461.p.40896",
+          "name": "Jayden Daniels",
+          "position": "QB",
+          "nfl_team": "Was",
+          "roster_position": "BN",
+          "status": "O",
+          "is_ir_slot": false,
+          "injury_note": "Elbow"
+        },
+        {
+          "player_id": 40958,
+          "player_key": "461.p.40958",
+          "name": "Trey Benson",
+          "position": "RB",
+          "nfl_team": "Ari",
+          "roster_position": "IR",
+          "status": "IR",
+          "is_ir_slot": true,
+          "injury_note": "Knee - Meniscus"
+        }
+      ]
+    }
+  ]
+}

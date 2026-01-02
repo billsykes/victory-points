@@ -46,6 +46,37 @@ Each team gets **two** results each week:
 - **Professional Workflow**: Assign, track, and resolve violations
 - **Multiple Alert Options**: GitHub Issues, Slack, Discord, or email
 
+## Season-End Tasks
+
+### Save Final Rosters
+
+At the end of each season, save a snapshot of all team rosters for historical record-keeping:
+
+```bash
+python scripts/save_final_rosters.py
+```
+
+**Options:**
+- `--week WEEK`: Specific week to save rosters from (default: current week)
+- `--season YEAR`: Season year (default: current season)
+- `--summary`: Print detailed roster summary
+- `--output-dir DIR`: Output directory (default: data/)
+
+**Example:**
+```bash
+# Save current rosters with detailed summary
+python scripts/save_final_rosters.py --summary
+
+# Save rosters from a specific week/season
+python scripts/save_final_rosters.py --week 14 --season 2024 --summary
+```
+
+This creates a `final_rosters_YYYY.json` file containing:
+- Team information (name, manager, ID)
+- Complete roster with player details
+- Position assignments and IR status
+- Timestamp of when rosters were saved
+
 ## Automation
 
 The project uses GitHub Actions to:

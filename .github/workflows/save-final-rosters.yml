@@ -1,0 +1,227 @@
+name: Save Final Season Rosters
+
+on:
+  # Manual trigger only - run this at the end of each season
+  workflow_dispatch:
+    inputs:
+      week:
+        description: 'Week to save rosters from (leave empty for current week)'
+        required: false
+        type: string
+      season:
+        description: 'Season year (leave empty for current season)'
+        required: false
+        type: string
+      show_summary:
+        description: 'Show detailed roster summary in logs'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  save-rosters:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allow pushing changes to repository
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Disable IPv6 to prevent connection issues
+      run: sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        
+        # Configure pip for better reliability
+        pip config set global.timeout 60
+        pip config set global.retries 5
+        pip config set global.disable-pip-version-check true
+        
+        # Function to try installation with different methods
+        install_requirements() {
+          local method="$1"
+          local cmd="$2"
+          echo "=== Trying installation method: $method ==="
+          if eval "$cmd"; then
+            echo "✅ Installation successful with $method"
+            return 0
+          else
+            echo "❌ Installation failed with $method"
+            return 1
+          fi
+        }
+        
+        # Try different installation methods in order
+        install_requirements "primary PyPI" "pip install --verbose --retries 5 --timeout 60 -r requirements.txt" || \
+        install_requirements "trusted hosts" "pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --retries 5 --timeout 60 -r requirements.txt" || \
+        install_requirements "alternative mirror" "pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn --retries 5 --timeout 60 -r requirements.txt" || \
+        {
+          echo "❌ All standard methods failed, trying individual package installation..."
+          # Install essential packages individually
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org setuptools wheel
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org numpy==1.26.4
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org pandas==2.1.4
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org requests==2.31.0
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dateutil==2.8.2
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org python-dotenv==1.0.1
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org colorlog==6.8.2
+          pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org "yfpy>=16.0.0,<17.0.0"
+        }
+    
+    - name: Verify installation
+      run: |
+        echo "=== Verifying installed packages ==="
+        python -c "import sys; print(f'Python version: {sys.version}')"
+        python -c "import yfpy; print('✅ yfpy imported successfully')"
+        python -c "from yfpy import YahooFantasySportsQuery; print('✅ YahooFantasySportsQuery imported successfully')"
+        echo "✅ All required packages are properly installed and importable"
+    
+    - name: Create required directories
+      run: |
+        mkdir -p config/auth
+        mkdir -p data
+    
+    - name: Save final rosters
+      env:
+        YAHOO_CONSUMER_KEY: ${{ secrets.YAHOO_CONSUMER_KEY }}
+        YAHOO_CONSUMER_SECRET: ${{ secrets.YAHOO_CONSUMER_SECRET }}
+        YAHOO_ACCESS_TOKEN: ${{ secrets.YAHOO_ACCESS_TOKEN }}
+        YAHOO_REFRESH_TOKEN: ${{ secrets.YAHOO_REFRESH_TOKEN }}
+        YAHOO_GUID: ${{ secrets.YAHOO_GUID }}
+        YAHOO_TOKEN_TIME: ${{ secrets.YAHOO_TOKEN_TIME }}
+        YAHOO_TOKEN_TYPE: ${{ secrets.YAHOO_TOKEN_TYPE }}
+        LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
+        GAME_KEY: nfl
+        CURRENT_SEASON: 2024
+        PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/scripts
+        CI: true
+      run: |
+        # Verify we're in the right directory
+        echo "Current directory: $(pwd)"
+        echo "Python path: $PYTHONPATH"
+        
+        # Build command with optional parameters
+        CMD="python scripts/save_final_rosters.py --output-dir data"
+        
+        if [ -n "${{ github.event.inputs.week }}" ]; then
+          CMD="$CMD --week ${{ github.event.inputs.week }}"
+          echo "📅 Saving rosters from Week ${{ github.event.inputs.week }}"
+        else
+          echo "📅 Saving rosters from current week"
+        fi
+        
+        if [ -n "${{ github.event.inputs.season }}" ]; then
+          CMD="$CMD --season ${{ github.event.inputs.season }}"
+          echo "📅 Season: ${{ github.event.inputs.season }}"
+        else
+          echo "📅 Season: current season"
+        fi
+        
+        if [ "${{ github.event.inputs.show_summary }}" = "true" ]; then
+          CMD="$CMD --summary"
+          echo "📊 Detailed summary will be shown"
+        fi
+        
+        # Run the script
+        echo "🚀 Running save_final_rosters.py..."
+        echo "Command: $CMD"
+        eval $CMD
+        
+        # Show what was created
+        echo ""
+        echo "📁 Files created:"
+        ls -lh data/final_rosters_*.json || echo "No roster files found"
+    
+    - name: Check for changes
+      id: git-check
+      run: |
+        if [ -f data/final_rosters_*.json ]; then
+          git add data/final_rosters_*.json
+          if git diff --cached --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "📊 No new roster data to commit"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "✅ New roster data ready to commit"
+          fi
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "❌ No roster files found"
+        fi
+    
+    - name: Commit and push changes
+      if: steps.git-check.outputs.changes == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/final_rosters_*.json
+        
+        # Determine season for commit message
+        SEASON="${{ github.event.inputs.season }}"
+        if [ -z "$SEASON" ]; then
+          SEASON="2024"
+        fi
+        
+        git commit -m "📸 Save final rosters for $SEASON season - $(date '+%Y-%m-%d')"
+        git push
+    
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## 📸 Final Rosters Saved" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.git-check.outputs.changes }}" = "true" ]; then
+          SEASON="${{ github.event.inputs.season }}"
+          if [ -z "$SEASON" ]; then
+            SEASON="current"
+          fi
+          
+          WEEK="${{ github.event.inputs.week }}"
+          if [ -z "$WEEK" ]; then
+            WEEK="current"
+          fi
+          
+          echo "✅ **Rosters saved successfully**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Season:** $SEASON" >> $GITHUB_STEP_SUMMARY
+          echo "- **Week:** $WEEK" >> $GITHUB_STEP_SUMMARY
+          echo "- **Files created:**" >> $GITHUB_STEP_SUMMARY
+          
+          for file in data/final_rosters_*.json; do
+            if [ -f "$file" ]; then
+              SIZE=$(ls -lh "$file" | awk '{print $5}')
+              echo "  - \`$(basename "$file")\` ($SIZE)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📁 Roster data has been committed to the repository" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ **No changes detected**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The roster file may already exist or no data was available" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "---" >> $GITHUB_STEP_SUMMARY
+        echo "*Use this workflow at the end of each season to preserve roster history*" >> $GITHUB_STEP_SUMMARY
+
